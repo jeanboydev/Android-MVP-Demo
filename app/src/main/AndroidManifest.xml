@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.jeanboy.app.ui.action.MainActivity"></activity>
+        <activity android:name="com.jeanboy.app.ui.action.MainActivity" />
+        <activity android:name="com.jeanboy.app.ui.action.login.LoginActivity" />
+        <activity android:name="com.jeanboy.app.ui.action.settings.SettingsActivity"></activity>
     </application>
 
 </manifest>
