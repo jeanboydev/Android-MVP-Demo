@@ -16,6 +16,9 @@ public class MainApplication extends Application {
 
     }
 
+    /**
+     * MainApplication的初始化建议放到Splash里面
+     */
     public void init() {
         CrashHandler.getInstance().init(this);//初始化crash
     }

@@ -8,4 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolBarTitleTextStyle" parent="android:Widget.Holo.Light.TextView">
+        <item name="android:textSize">@dimen/text_20sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ToolBarButtonTextStyle" parent="android:Widget.Holo.Light.Button">
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <!--<item name="android:background">@drawable/common_btn_selector</item>-->
+    </style>
+
 </resources>
