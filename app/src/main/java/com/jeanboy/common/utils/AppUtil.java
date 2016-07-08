@@ -13,7 +13,10 @@ import java.util.List;
  * Created by Next on 2016/7/4.
  */
 public class AppUtil {
-    private final static String TAG = AppUtil.class.getSimpleName();
+
+    public AppUtil() {
+        throw new AssertionError();
+    }
 
     /**
      * 获取软件版本号
