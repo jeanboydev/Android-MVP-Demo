@@ -1,15 +1,71 @@
 package com.jeanboy.app.ui.action;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.widget.TextView;
 
-import com.example.next.demo.R;
+import com.jeanboy.app.R;
+import com.jeanboy.app.base.BaseActivity;
+import com.jeanboy.common.utils.AppUtil;
 
-public class SplashActivity extends AppCompatActivity {
+import butterknife.BindView;
+
+
+public class SplashActivity extends BaseActivity {
+
+    @BindView(R.id.tv_version)
+    TextView tv_version;
+
+    private static final int DELAY_MILLIS = 1500;
+    private final Handler mHideHandler = new Handler();
+    private final Runnable mJumpRunnable = new Runnable() {
+        @SuppressLint("InlinedApi")
+        @Override
+        public void run() {
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            SplashActivity.this.finish();
+        }
+    };
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slpash);
+    public Class getTag(Class clazz) {
+        return SplashActivity.class;
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_slpash;
+    }
+
+    @Override
+    public void setupView() {
+        tv_version.setText(AppUtil.getVersionName(this));
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
+        delayedHide(DELAY_MILLIS);
+    }
+
+    private void delayedHide(int delayMillis) {
+        mHideHandler.removeCallbacks(mJumpRunnable);
+        mHideHandler.postDelayed(mJumpRunnable, delayMillis);
+    }
+
 }

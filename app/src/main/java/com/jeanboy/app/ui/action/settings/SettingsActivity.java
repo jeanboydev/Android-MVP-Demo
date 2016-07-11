@@ -3,7 +3,8 @@ package com.jeanboy.app.ui.action.settings;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.next.demo.R;
+import com.jeanboy.app.R;
+
 
 public class SettingsActivity extends AppCompatActivity {
 

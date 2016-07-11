@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.next.demo.R;
+import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseRemote;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.tasks.contract.UserContract;

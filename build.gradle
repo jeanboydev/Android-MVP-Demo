@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -15,12 +16,14 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://www.jitpack.io" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
 
 // Define versions in a single place
 ext {
@@ -31,7 +34,12 @@ ext {
     buildToolsVersion = '23.0.3'
 
     // App dependencies
+    junitVersion = '4.12'
     supportLibraryVersion = '23.4.0'
     guavaVersion = '18.0'
-    junitVersion = '4.12'
+    dbflowVersion = '3.1.1'
+    butterknifeVersion = '8.2.0'
+    eventbusVersion = '3.0.0'
+    picassoVersion = '2.5.2'
+    fastjsonVersion = '1.1.52.android'
 }

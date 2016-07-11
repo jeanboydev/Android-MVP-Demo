@@ -7,7 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.next.demo.R;
+import com.jeanboy.app.R;
+
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Next on 2016/7/4.
@@ -35,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         TAG = getTag(BaseActivity.class).getSimpleName();
+        ButterKnife.bind(this);
         setupActionBar();
         setupView();
     }
