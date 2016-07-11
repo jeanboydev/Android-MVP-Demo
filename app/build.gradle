@@ -41,6 +41,10 @@ dependencies {
     compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     compile "com.alibaba:fastjson:$rootProject.fastjsonVersion"
 
+    compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.junitVersion"
 }

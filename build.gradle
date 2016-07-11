@@ -42,4 +42,6 @@ ext {
     eventbusVersion = '3.0.0'
     picassoVersion = '2.5.2'
     fastjsonVersion = '1.1.52.android'
+    okhttpVersion = '3.4.1'
+    retrofitVersion = '2.1.0'
 }

@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.next.demo.R;
+import com.jeanboy.app.R;
+
 
 /**
  * Created by Next on 2016/7/8.
