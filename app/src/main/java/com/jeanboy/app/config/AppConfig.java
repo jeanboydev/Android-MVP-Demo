@@ -5,5 +5,7 @@ package com.jeanboy.app.config;
  */
 public class AppConfig {
 
-    private final static String APP_NAME = "demo";
+    public final static String APP_NAME = "demo";
+
+    public final static String SERVER_HOST = "https://wenwan.gnsit.cn/api/";
 }

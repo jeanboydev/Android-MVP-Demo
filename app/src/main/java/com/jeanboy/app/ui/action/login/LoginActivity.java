@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.jeanboy.app.R;
-import com.jeanboy.app.base.BaseRemote;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.tasks.contract.UserContract;
 import com.jeanboy.app.tasks.presenter.UserPresenter;
+import com.jeanboy.manager.net.RequestCallback;
+
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements UserContract.View {
 
@@ -24,9 +26,9 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Vie
     }
 
     public void toLogin(View v) {
-        mPresenter.logIn("", "", new BaseRemote.GetBack<UserBean>() {
+        mPresenter.logIn("", "", new RequestCallback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
+            public void success(Response<UserBean> response) {
 
             }
 
@@ -38,10 +40,9 @@ public class LoginActivity extends AppCompatActivity implements UserContract.Vie
     }
 
     public void getInfo(String id) {
-        mPresenter.getInfo(id, new BaseRemote.GetBack<UserBean>() {
+        mPresenter.getInfo(id, new RequestCallback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
-
+            public void success(Response<UserBean> response) {
             }
 
             @Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseActivity;
+import com.jeanboy.app.base.MainApplication;
 import com.jeanboy.common.utils.AppUtil;
 
 import butterknife.BindView;
@@ -48,7 +49,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        MainApplication.getInstance().init();
     }
 
     @Override

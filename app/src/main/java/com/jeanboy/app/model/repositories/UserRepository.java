@@ -5,20 +5,26 @@ import com.jeanboy.app.model.sources.UserDataSource;
 import com.jeanboy.app.model.sources.local.UserLocalDataSource;
 import com.jeanboy.app.model.sources.remote.UserRemote;
 import com.jeanboy.app.model.sources.remote.UserRemoteDataSource;
+import com.jeanboy.manager.net.RequestCallback;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
+ * Repository管理缓存的逻辑
+ *
  * Created by Next on 2016/7/5.
  */
 public class UserRepository implements UserDataSource, UserRemote {
 
     private static UserRepository INSTANCE = null;
 
-    private final UserRemoteDataSource mRemoteDataSource;
+    private final UserRemoteDataSource mRemoteDataSource;//网络数据操作
 
-    private final UserLocalDataSource mLocalDataSource;
+    private final UserLocalDataSource mLocalDataSource;//缓存操作
 
     boolean mCacheIsDirty = false;//是否需要重新获取数据
 
@@ -41,32 +47,33 @@ public class UserRepository implements UserDataSource, UserRemote {
     }
 
     @Override
-    public void logIn(String username, String password, GetBack<UserBean> callback) {
-        mRemoteDataSource.logIn(username, password, callback);
+    public Call<UserBean> logIn(String username, String password, RequestCallback<UserBean> callback) {
+        return mRemoteDataSource.logIn(username, password, callback);
     }
 
     @Override
-    public void logOut(String username, String password, GetBack<UserBean> callback) {
-        mRemoteDataSource.logOut(username, password, callback);
+    public Call<UserBean> logOut(String username, String password, RequestCallback<UserBean> callback) {
+        return mRemoteDataSource.logOut(username, password, callback);
     }
 
     @Override
-    public void getInfo(String id, GetBack<UserBean> callback) {
+    public Call<UserBean> getInfo(String id, RequestCallback<UserBean> callback) {
         if (mCachedMap != null && !mCacheIsDirty) {
-            callback.success(mCachedMap.get(id));
-            return;
+            callback.success(Response.success(mCachedMap.get(id)));
+            return null;
         }
         if (mCacheIsDirty) {//本地数据已过时
             getFromRemote(id, callback);
         } else {//读取本地数据
             UserBean userBean = mLocalDataSource.get(id);
             if (userBean == null) {//读取失败，获取远程信息
-                getFromRemote(id, callback);
+                return getFromRemote(id, callback);
             } else {
                 refreshCache(userBean);
-                callback.success(userBean);
+                callback.success(Response.success(mCachedMap.get(id)));
             }
         }
+        return null;
     }
 
     @Override
@@ -80,13 +87,13 @@ public class UserRepository implements UserDataSource, UserRemote {
     }
 
 
-    public void getFromRemote(String id, final GetBack<UserBean> callback) {
-        mRemoteDataSource.getInfo(id, new GetBack<UserBean>() {
+    public Call<UserBean> getFromRemote(String id, final RequestCallback<UserBean> callback) {
+        return mRemoteDataSource.getInfo(id, new RequestCallback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
-                refreshCache(userBean);
-                refreshLocalData(userBean);
-                callback.success(userBean);
+            public void success(Response<UserBean> response) {
+                refreshCache(response.body());
+                refreshLocalData(response.body());
+                callback.success(response);
             }
 
             @Override
@@ -119,6 +126,7 @@ public class UserRepository implements UserDataSource, UserRemote {
         mLocalDataSource.clear();
         mLocalDataSource.save(userBean);
     }
+
 
 }
 

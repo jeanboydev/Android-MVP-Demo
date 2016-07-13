@@ -10,7 +10,8 @@
         <!--窗口背景颜色-->
         <item name="android:windowBackground">@color/common_bg</item>
         <!--底部栏颜色-->
-        <item name="android:navigationBarColor">@color/common_bg</item>
+        <!--<item name="android:navigationBarColor">@color/common_bg</item>-->
+
 
         <item name="android:configChanges">keyboardHidden</item>
         <item name="android:windowSoftInputMode">stateHidden</item>

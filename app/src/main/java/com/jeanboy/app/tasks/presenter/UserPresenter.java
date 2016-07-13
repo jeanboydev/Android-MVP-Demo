@@ -6,9 +6,14 @@ import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.model.repositories.UserRepository;
 import com.jeanboy.app.tasks.contract.UserContract;
 
+import retrofit2.Call;
+import retrofit2.Response;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
+ * Presenter管理View逻辑，调用Repository
+ *
  * Created by Next on 2016/7/4.
  */
 public class UserPresenter implements UserContract.Presenter {
@@ -25,16 +30,15 @@ public class UserPresenter implements UserContract.Presenter {
         mUserRepository = UserRepository.getInstance();
     }
 
-
     @Override
-    public void logIn(String username, String password, final GetBack<UserBean> callback) {
+    public Call<UserBean> logIn(String username, String password, final Callback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        mUserRepository.logIn(username, password, new GetBack<UserBean>() {
+        return mUserRepository.logIn(username, password, new Callback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
+            public void success(Response<UserBean> response) {
                 mUserRepository.refresh();//用户登陆，需要重新刷新缓存信息
                 mUserView.setLoadingIndicator(false);
-                callback.success(userBean);
+                callback.success(response);
             }
 
             @Override
@@ -47,13 +51,13 @@ public class UserPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public void logOut(String username, String password, final GetBack<UserBean> callback) {
+    public Call<UserBean> logOut(String username, String password, final Callback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        mUserRepository.logOut(username, password, new GetBack<UserBean>() {
+        return mUserRepository.logOut(username, password, new Callback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
+            public void success(Response<UserBean> response) {
                 mUserView.setLoadingIndicator(false);
-                callback.success(userBean);
+                callback.success(response);
             }
 
             @Override
@@ -66,13 +70,13 @@ public class UserPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public void getInfo(String id, final GetBack<UserBean> callback) {
+    public Call<UserBean> getInfo(String id, final Callback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        mUserRepository.getInfo(id, new GetBack<UserBean>() {
+        return mUserRepository.getInfo(id, new Callback<UserBean>() {
             @Override
-            public void success(UserBean userBean) {
+            public void success(Response<UserBean> response) {
                 mUserView.setLoadingIndicator(false);
-                callback.success(userBean);
+                callback.success(response);
             }
 
             @Override

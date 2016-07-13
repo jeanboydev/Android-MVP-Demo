@@ -31,7 +31,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 22
     compileSdkVersion = 23
-    buildToolsVersion = '23.0.3'
+    buildToolsVersion = '23.0.2'
 
     // App dependencies
     junitVersion = '4.12'

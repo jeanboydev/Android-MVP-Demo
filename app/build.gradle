@@ -10,7 +10,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "v1.0"
+        versionName "v1.0.1"
     }
     buildTypes {
         release {
@@ -38,12 +38,13 @@ dependencies {
     apt "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 
     compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     compile "com.alibaba:fastjson:$rootProject.fastjsonVersion"
 
+    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.junitVersion"

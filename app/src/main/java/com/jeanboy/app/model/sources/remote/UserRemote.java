@@ -1,16 +1,19 @@
 package com.jeanboy.app.model.sources.remote;
 
-import com.jeanboy.app.base.BaseRemote;
 import com.jeanboy.app.model.bean.UserBean;
+import com.jeanboy.manager.net.RequestCallback;
+
+import retrofit2.Call;
+
 
 /**
  * Created by Next on 2016/7/7.
  */
-public interface UserRemote extends BaseRemote {
+public interface UserRemote {
 
-    void logIn(String username, String password, GetBack<UserBean> callback);
+    Call<UserBean> logIn(String username, String password, RequestCallback<UserBean> callback);
 
-    void logOut(String username, String password, GetBack<UserBean> callback);
+    Call<UserBean> logOut(String username, String password, RequestCallback<UserBean> callback);
 
-    void getInfo(String id, GetBack<UserBean> callback);
+    Call<UserBean> getInfo(String id, RequestCallback<UserBean> callback);
 }
