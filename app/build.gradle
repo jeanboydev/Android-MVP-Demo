@@ -46,6 +46,8 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
 
+    compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
+
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.junitVersion"
 }

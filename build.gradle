@@ -44,4 +44,5 @@ ext {
     fastjsonVersion = '1.1.52.android'
     okhttpVersion = '3.4.1'
     retrofitVersion = '2.1.0'
+    filedownloaderVersion = '0.3.3'
 }

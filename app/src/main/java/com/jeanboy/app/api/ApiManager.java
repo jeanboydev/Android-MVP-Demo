@@ -2,7 +2,7 @@ package com.jeanboy.app.api;
 
 import android.text.TextUtils;
 
-import com.jeanboy.app.api.impl.UserImpl;
+import com.jeanboy.app.api.user.UserApi;
 import com.jeanboy.manager.net.RequestCallback;
 import com.jeanboy.manager.net.NetManager;
 
@@ -16,12 +16,12 @@ import retrofit2.Response;
  */
 public class ApiManager {
 
-    public UserImpl userApi;
+    public UserApi userApi;
 
     private static ApiManager instance;
 
     private ApiManager() {
-        userApi = NetManager.getInstance().create(UserImpl.class);
+        userApi = NetManager.getInstance().create(UserApi.class);
     }
 
     public static ApiManager getInstance() {

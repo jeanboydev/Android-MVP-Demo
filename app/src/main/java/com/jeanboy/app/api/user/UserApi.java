@@ -1,6 +1,5 @@
-package com.jeanboy.app.api.impl;
+package com.jeanboy.app.api.user;
 
-import com.jeanboy.app.api.dao.UserDao;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.manager.net.NetManager;
 
@@ -9,11 +8,11 @@ import retrofit2.Call;
 /**
  * Created by Next on 2016/7/11.
  */
-public class UserImpl {
+public class UserApi {
 
     private UserDao userDao;
 
-    public UserImpl() {
+    public UserApi() {
         userDao = NetManager.getInstance().create(UserDao.class);
     }
 
