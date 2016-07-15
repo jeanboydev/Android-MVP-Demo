@@ -40,9 +40,10 @@ ext {
     dbflowVersion = '3.1.1'
     butterknifeVersion = '8.2.0'
     eventbusVersion = '3.0.0'
-    picassoVersion = '2.5.2'
+//    picassoVersion = '2.5.2'
     fastjsonVersion = '1.1.52.android'
     okhttpVersion = '3.4.1'
     retrofitVersion = '2.1.0'
+    glideVersion = '3.7.0'
     filedownloaderVersion = '0.3.3'
 }

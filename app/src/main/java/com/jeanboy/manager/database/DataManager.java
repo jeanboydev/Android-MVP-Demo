@@ -1,5 +1,6 @@
 package com.jeanboy.manager.database;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.OrderBy;
 import com.raizlabs.android.dbflow.sql.language.SQLCondition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -43,6 +44,10 @@ public class DataManager {
 
     public <T extends Model> void save(T t) {
         t.save();
+    }
+
+    public <T extends Model> void saveAll(Class<T> table, List<Model> ts) {
+        FlowManager.getDatabase(table).getTransactionManager().getSaveQueue().addAll(ts);
     }
 
     public <T extends Model> void update(T t) {

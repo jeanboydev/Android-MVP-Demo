@@ -3,7 +3,8 @@ package com.jeanboy.manager.image;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 import java.io.File;
 
@@ -14,7 +15,7 @@ public class ImageManager {
 
     private static ImageManager instance;
 
-    private static Picasso picasso;
+    private static RequestManager requestManager;
 
     private ImageManager() {
     }
@@ -28,7 +29,7 @@ public class ImageManager {
 
 
     public void build(Context context) {
-        picasso = Picasso.with(context);
+        requestManager = Glide.with(context);
     }
 
     /**
@@ -38,7 +39,7 @@ public class ImageManager {
      * @param url
      */
     public static void load(ImageView imageView, String url) {
-        picasso.load(url)
+        requestManager.load(url)
 //                .placeholder()//加载中图片
 //                .error()//加载失败图片
                 .centerCrop()
@@ -46,7 +47,7 @@ public class ImageManager {
     }
 
     public static void load(ImageView imageView, File file) {
-        picasso.load(file)
+        requestManager.load(file)
 //                .placeholder()//加载中图片
 //                .error()//加载失败图片
                 .centerCrop()
@@ -63,10 +64,11 @@ public class ImageManager {
      * @param maxHeight
      */
     public static void load(ImageView imageView, String url, int maxWidth, int maxHeight) {
-        picasso.load(url)
+        requestManager.load(url)
 //                .placeholder()//加载中图片
 //                .error()//加载失败图片
-                .resize(maxWidth, maxHeight)
+                .override(maxWidth, maxHeight)
                 .into(imageView);
+
     }
 }

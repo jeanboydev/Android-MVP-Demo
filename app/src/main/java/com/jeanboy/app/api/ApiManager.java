@@ -41,7 +41,7 @@ public class ApiManager {
                 } else {
                     String msg = null;
                     try {
-                        msg = response.errorBody().string();// TODO: 2016/7/13 处理自定义错误信息
+                        msg = response.errorBody().string();// TODO:处理自定义错误信息
                     } catch (IOException e) {
                         callback.error(e.getMessage());
                     }

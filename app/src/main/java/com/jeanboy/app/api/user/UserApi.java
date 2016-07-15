@@ -25,7 +25,7 @@ public class UserApi {
         return userDao.logIn(client, username, password);
     }
 
-    Call<UserBean> logOut(String username, String password) {
+    public Call<UserBean> logOut(String username, String password) {
         return userDao.logOut(username, password);
     }
 

@@ -74,6 +74,7 @@ public interface UserDao {
     @POST(ApiConfig.PATH_USERS)
     Call<UserBean> logIn(@Query("client") String client, @Field("username") String username, @Field("password") String password);
 
+    @FormUrlEncoded
     @POST(ApiConfig.PATH_USERS)
     Call<UserBean> logOut(@Field("username") String username, @Field("password") String password);
 }

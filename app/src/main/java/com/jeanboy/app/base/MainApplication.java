@@ -1,6 +1,7 @@
 package com.jeanboy.app.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.jeanboy.app.config.AppConfig;
 import com.jeanboy.common.crash.CrashHandler;
@@ -26,12 +27,15 @@ public class MainApplication extends Application {
         instance = this;
     }
 
+
     /**
-     * MainApplication的初始化建议放到Splash里面
+     * 初始化一些工具，耗时操作放到splash中
      */
-    public void init() {
-        CrashHandler.getInstance().init(this);//初始化crash
-        FlowManager.init(new FlowConfig.Builder(this).build());//初始化DBFlow
+    public void init(Context context) {
+        CrashHandler.getInstance().init(context);//初始化crash
+        FlowManager.init(new FlowConfig.Builder(context).build());//初始化DBFlow
         NetManager.getInstance().init(AppConfig.SERVER_HOST);
     }
+
+
 }

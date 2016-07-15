@@ -49,7 +49,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        MainApplication.getInstance().init();
+        MainApplication.getInstance().init(getApplication());
     }
 
     @Override

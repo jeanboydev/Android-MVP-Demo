@@ -40,11 +40,13 @@ dependencies {
     compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
     compile "com.alibaba:fastjson:$rootProject.fastjsonVersion"
 
-    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
+//    compile "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
 
     compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
 
