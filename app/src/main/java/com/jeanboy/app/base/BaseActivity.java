@@ -42,24 +42,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
         setContentView(getLayoutId());
         TAG = getTag(BaseActivity.class).getSimpleName();
         ButterKnife.bind(this);
+
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
-//        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
-//            @Override
-//            public void onScrollStateChange(int state, float scrollPercent) {
-//
-//            }
-//
-//            @Override
-//            public void onEdgeTouch(int edgeFlag) {
-//                vibrate(VIBRATE_DURATION);
-//            }
-//
-//            @Override
-//            public void onScrollOverThreshold() {
-//                vibrate(VIBRATE_DURATION);
-//            }
-//        });
 
         setupActionBar();
         setupView();
@@ -107,6 +92,12 @@ public abstract class BaseActivity extends SwipeBackActivity {
                 finish();
             }
         });
+    }
+
+    public void setTitle(String title) {
+        if (getToolbarTitleView() != null) {
+            getToolbarTitleView().setText(title);
+        }
     }
 
     /**

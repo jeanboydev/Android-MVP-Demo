@@ -1,5 +1,7 @@
 package com.jeanboy.app.ui.action.login;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.view.View;
 
 import com.jeanboy.app.R;
@@ -29,6 +31,7 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
     @Override
     public void setupView() {
         mPresenter = new UserPresenter(this);
+        setTitle("登录");
     }
 
     @Override
@@ -36,6 +39,28 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
 
     }
 
+    @Override
+    public void showDialog(String msg) {
+
+    }
+
+
+    @Override
+    public void toast(String msg) {
+
+    }
+
+    @Override
+    public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onDestroy() {
+        finishAfterTransition();
+        super.onDestroy();
+    }
 
     public void toLogin(View v) {
         mPresenter.logIn("", "", new RequestCallback<UserBean>() {
@@ -65,19 +90,4 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
     }
 
 
-    @Override
-    public void showDialog(String msg) {
-
-    }
-
-
-    @Override
-    public void toast(String msg) {
-
-    }
-
-    @Override
-    public void setLoadingIndicator(boolean active) {
-
-    }
 }

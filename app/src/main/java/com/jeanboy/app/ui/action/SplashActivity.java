@@ -44,6 +44,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void setupView() {
+        setSwipeBackEnable(false);
         tv_version.setText(AppUtil.getVersionName(this));
     }
 
