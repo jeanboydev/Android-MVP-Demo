@@ -15,7 +15,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 @Table(database = AppDataBase.class)
 public class UserBean extends BaseModel {
 
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey(autoincrement = false)
     private long id;
     @Column
     private String username;

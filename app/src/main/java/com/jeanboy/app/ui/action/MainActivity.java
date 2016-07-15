@@ -1,31 +1,41 @@
 package com.jeanboy.app.ui.action;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.content.Intent;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
 import com.jeanboy.app.R;
-import com.jeanboy.app.model.bean.UserBean;
+import com.jeanboy.app.base.BaseActivity;
 import com.jeanboy.app.tasks.contract.UserContract;
 import com.jeanboy.app.tasks.presenter.UserPresenter;
-import com.jeanboy.manager.net.RequestCallback;
-
-import retrofit2.Response;
+import com.jeanboy.app.ui.action.login.LoginActivity;
 
 
-public class MainActivity extends AppCompatActivity implements UserContract.View {
+public class MainActivity extends BaseActivity implements UserContract.View {
 
 
     private UserContract.Presenter mPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public Class getTag(Class clazz) {
+        return MainActivity.class;
+    }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void setupView() {
         mPresenter = new UserPresenter(this);
+        if (getToolbarTitleView() != null) {
+            getToolbarTitleView().setText("首页");
+        }
+    }
+
+
+    @Override
+    public void initData() {
 
     }
 
@@ -61,17 +71,19 @@ public class MainActivity extends AppCompatActivity implements UserContract.View
 //            }
 //        });
 
-        mPresenter.logIn("18633664213", "123456", new RequestCallback<UserBean>() {
-            @Override
-            public void success(Response<UserBean> response) {
-                Log.e("===============", JSON.toJSONString(response));
-            }
+//        mPresenter.logIn("18633664213", "123456", new RequestCallback<UserBean>() {
+//            @Override
+//            public void success(Response<UserBean> response) {
+//                Log.e("===============", JSON.toJSONString(response));
+//            }
+//
+//            @Override
+//            public void error(String msg) {
+//                Log.e("----------------", msg);
+//            }
+//        });
 
-            @Override
-            public void error(String msg) {
-                Log.e("----------------", msg);
-            }
-        });
+        startActivity(new Intent(this, LoginActivity.class));
 
     }
 

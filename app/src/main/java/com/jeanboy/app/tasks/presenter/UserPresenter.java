@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.model.repositories.UserRepository;
 import com.jeanboy.app.tasks.contract.UserContract;
+import com.jeanboy.manager.net.RequestCallback;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -31,9 +32,9 @@ public class UserPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public Call<UserBean> logIn(String username, String password, final Callback<UserBean> callback) {
+    public Call<UserBean> logIn(String username, String password, final RequestCallback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        return mUserRepository.logIn(username, password, new Callback<UserBean>() {
+        return mUserRepository.logIn(username, password, new RequestCallback<UserBean>() {
             @Override
             public void success(Response<UserBean> response) {
                 mUserRepository.refresh();//用户登陆，需要重新刷新缓存信息
@@ -51,9 +52,9 @@ public class UserPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public Call<UserBean> logOut(String username, String password, final Callback<UserBean> callback) {
+    public Call<UserBean> logOut(String username, String password, final RequestCallback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        return mUserRepository.logOut(username, password, new Callback<UserBean>() {
+        return mUserRepository.logOut(username, password, new RequestCallback<UserBean>() {
             @Override
             public void success(Response<UserBean> response) {
                 mUserView.setLoadingIndicator(false);
@@ -70,9 +71,9 @@ public class UserPresenter implements UserContract.Presenter {
     }
 
     @Override
-    public Call<UserBean> getInfo(String id, final Callback<UserBean> callback) {
+    public Call<UserBean> getInfo(String id, final RequestCallback<UserBean> callback) {
         mUserView.setLoadingIndicator(true);
-        return mUserRepository.getInfo(id, new Callback<UserBean>() {
+        return mUserRepository.getInfo(id, new RequestCallback<UserBean>() {
             @Override
             public void success(Response<UserBean> response) {
                 mUserView.setLoadingIndicator(false);

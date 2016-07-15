@@ -1,10 +1,9 @@
 package com.jeanboy.app.ui.action.login;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.jeanboy.app.R;
+import com.jeanboy.app.base.BaseActivity;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.tasks.contract.UserContract;
 import com.jeanboy.app.tasks.presenter.UserPresenter;
@@ -12,18 +11,31 @@ import com.jeanboy.manager.net.RequestCallback;
 
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements UserContract.View {
+public class LoginActivity extends BaseActivity implements UserContract.View {
 
 
     private UserContract.Presenter mPresenter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public Class getTag(Class clazz) {
+        return LoginActivity.class;
+    }
 
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    public void setupView() {
         mPresenter = new UserPresenter(this);
     }
+
+    @Override
+    public void initData() {
+
+    }
+
 
     public void toLogin(View v) {
         mPresenter.logIn("", "", new RequestCallback<UserBean>() {

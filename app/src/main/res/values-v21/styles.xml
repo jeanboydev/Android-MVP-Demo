@@ -1,23 +1,14 @@
 <resources>
 
 
-    <style name="BaseTheme" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- actionbar默认使用颜色 -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <!--应用主要暗色调-->
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--窗口背景颜色-->
-        <item name="android:windowBackground">@color/common_bg</item>
-        <!--底部栏颜色-->
+    <!--<style name="BaseTheme" parent="android:Theme.Material.Light.NoActionBar">-->
+
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="android:windowBackground">@color/common_bg</item>-->
         <!--<item name="android:navigationBarColor">@color/common_bg</item>-->
-
-
-        <item name="android:configChanges">keyboardHidden</item>
-        <item name="android:windowSoftInputMode">stateHidden</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <!--</style>-->
 
     <style name="BaseThemeRed" parent="android:Theme.Material.Light.NoActionBar">
         <!-- actionbar默认使用颜色 -->
@@ -31,8 +22,13 @@
         <item name="android:navigationBarColor">@android:color/holo_red_light</item>
     </style>
 
-    <style name="AppTheme" parent="BaseTheme">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+    <!--<style name="AppTheme" parent="BaseTheme">-->
+        <!--<item name="actionBarSize">@dimen/action_bar_size</item>-->
+        <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="android:statusBarColor">@android:color/transparent</item>&ndash;&gt;-->
+        <!--<item name="android:configChanges">keyboardHidden</item>-->
+        <!--<item name="android:windowSoftInputMode">stateHidden</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
 </resources>

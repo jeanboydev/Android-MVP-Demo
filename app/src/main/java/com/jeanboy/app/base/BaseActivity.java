@@ -2,7 +2,6 @@ package com.jeanboy.app.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -10,16 +9,20 @@ import android.widget.TextView;
 import com.jeanboy.app.R;
 
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
 /**
  * Created by Next on 2016/7/4.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
 
     public String TAG;
 
     public Toolbar mToolbar;
+
+    private SwipeBackLayout mSwipeBackLayout;
 
     public BaseActivity() {
         TAG = this.getClass().getSimpleName();
@@ -39,6 +42,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         TAG = getTag(BaseActivity.class).getSimpleName();
         ButterKnife.bind(this);
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
+//        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
+//            @Override
+//            public void onScrollStateChange(int state, float scrollPercent) {
+//
+//            }
+//
+//            @Override
+//            public void onEdgeTouch(int edgeFlag) {
+//                vibrate(VIBRATE_DURATION);
+//            }
+//
+//            @Override
+//            public void onScrollOverThreshold() {
+//                vibrate(VIBRATE_DURATION);
+//            }
+//        });
+
         setupActionBar();
         setupView();
     }
@@ -50,24 +72,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
     }
 
-    public void setupActionBar() {
+    private void setupActionBar() {
         if (getToolbar() == null) {
             return;
         }
-        mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    public TextView getToolbarTitleView() {
-        if (getToolbar() == null) {
-            return null;
-        }
-        return ((TextView) mToolbar.findViewById(R.id.toolbar_title));
     }
 
     protected Toolbar getToolbar() {
@@ -81,6 +89,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mToolbar;
     }
 
+    public TextView getToolbarTitleView() {
+        if (getToolbar() == null) {
+            return null;
+        }
+        return ((TextView) mToolbar.findViewById(R.id.toolbar_title));
+    }
+
+    public void addToolbarBack() {
+        if (getToolbar() == null) {
+            return;
+        }
+        mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     /**
      * tool bar back button operation
