@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class DataManager {
 
-    private static DataManager instance;
+    private static DataManager instance = null;
 
     public static DataManager getInstance() {
         if (instance == null) {

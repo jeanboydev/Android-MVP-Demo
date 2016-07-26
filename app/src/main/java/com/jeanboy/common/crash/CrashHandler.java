@@ -15,7 +15,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private Context mContext;
     private Thread.UncaughtExceptionHandler mExceptionHandler;
 
-    public CrashHandler() {
+    private CrashHandler() {
     }
 
     public static CrashHandler getInstance() {

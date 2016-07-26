@@ -32,8 +32,8 @@
             style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:onClick="doWork"
-            android:text="请求" />
+            android:onClick="toList"
+            android:text="ListActivity" />
 
         <Button
             style="@style/Widget.AppCompat.Button.Colored"
@@ -57,18 +57,24 @@
             android:text="请求" />
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_height="50dp"
                 android:onClick="doAnim"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/bg"
                 android:transitionName="robot" />
-        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共享元素"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
 
 
     </LinearLayout>

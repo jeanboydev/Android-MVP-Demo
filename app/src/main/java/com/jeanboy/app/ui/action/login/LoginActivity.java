@@ -1,6 +1,5 @@
 package com.jeanboy.app.ui.action.login;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
 
@@ -55,11 +54,21 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        }
+    }
+
     @Override
     protected void onDestroy() {
-        finishAfterTransition();
         super.onDestroy();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        }
     }
 
     public void toLogin(View v) {

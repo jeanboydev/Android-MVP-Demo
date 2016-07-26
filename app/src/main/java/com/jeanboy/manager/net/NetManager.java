@@ -10,14 +10,18 @@ public class NetManager {
 
     private static Retrofit mRetrofit;
 
-    private static NetManager instance;
+    private static NetManager instance = null;
 
     private NetManager() {
     }
 
     public static NetManager getInstance() {
         if (instance == null) {
-            instance = new NetManager();
+            synchronized (NetManager.class) {
+                if (instance == null) {
+                    instance = new NetManager();
+                }
+            }
         }
         return instance;
     }

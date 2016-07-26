@@ -1,7 +1,6 @@
 package com.jeanboy.app.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -48,14 +47,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
         setupActionBar();
         setupView();
-    }
-
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
         initData();
     }
+
 
     private void setupActionBar() {
         if (getToolbar() == null) {

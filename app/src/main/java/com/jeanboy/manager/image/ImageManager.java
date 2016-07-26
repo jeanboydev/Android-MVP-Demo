@@ -13,7 +13,7 @@ import java.io.File;
  */
 public class ImageManager {
 
-    private static ImageManager instance;
+    private static ImageManager instance = null;
 
     private static RequestManager requestManager;
 
@@ -22,7 +22,11 @@ public class ImageManager {
 
     public static ImageManager getInstance() {
         if (instance == null) {
-            instance = new ImageManager();
+            synchronized (ImageManager.class) {
+                if (instance == null) {
+                    instance = new ImageManager();
+                }
+            }
         }
         return instance;
     }

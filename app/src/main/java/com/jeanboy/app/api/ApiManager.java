@@ -3,8 +3,8 @@ package com.jeanboy.app.api;
 import android.text.TextUtils;
 
 import com.jeanboy.app.api.user.UserApi;
-import com.jeanboy.manager.net.RequestCallback;
 import com.jeanboy.manager.net.NetManager;
+import com.jeanboy.manager.net.RequestCallback;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class ApiManager {
 
     public UserApi userApi;
 
-    private static ApiManager instance;
+    private static ApiManager instance = null;
 
     private ApiManager() {
         userApi = NetManager.getInstance().create(UserApi.class);
@@ -26,7 +26,11 @@ public class ApiManager {
 
     public static ApiManager getInstance() {
         if (instance == null) {
-            instance = new ApiManager();
+            synchronized (ApiManager.class) {
+                if (instance == null) {
+                    instance = new ApiManager();
+                }
+            }
         }
         return instance;
     }
