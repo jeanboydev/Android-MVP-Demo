@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            startAwesomeActivity(new Intent(SplashActivity.this, MainActivity.class));
             SplashActivity.this.finish();
         }
     };

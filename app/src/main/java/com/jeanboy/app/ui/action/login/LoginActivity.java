@@ -31,8 +31,8 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void setupView() {
+        setTitle("登录").homeAsUp();
         mPresenter = new UserPresenter(this);
-        setTitle("登录");
     }
 
     @Override

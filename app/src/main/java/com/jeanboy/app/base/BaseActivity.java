@@ -1,6 +1,11 @@
 package com.jeanboy.app.base;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +23,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public String TAG;
 
-    public Toolbar mToolbar;
+    private Toolbar toolbar;
 
     public BaseActivity() {
         TAG = this.getClass().getSimpleName();
@@ -39,67 +44,85 @@ public abstract class BaseActivity extends AppCompatActivity {
         TAG = getTag(BaseActivity.class).getSimpleName();
         ButterKnife.bind(this);
 
-        setupActionBar();
+        setupToolbar();
         setupView();
         initData();
     }
 
-
-    private void setupActionBar() {
-        if (getToolbar() == null) {
-            return;
-        }
-    }
-
-    protected Toolbar getToolbar() {
-        if (mToolbar == null) {
-            mToolbar = (Toolbar) findViewById(R.id.toolbar);
-            if (mToolbar != null) {
-                mToolbar.setTitle("");
-                setSupportActionBar(mToolbar);
+    /**
+     * 初始化Toolbar
+     */
+    private void setupToolbar() {
+        if (toolbar == null) {
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            if (toolbar != null) {
+                toolbar.setTitle("");
+                setSupportActionBar(toolbar);
             }
-        }
-        return mToolbar;
-    }
-
-    public TextView getToolbarTitleView() {
-        if (getToolbar() == null) {
-            return null;
-        }
-        return ((TextView) mToolbar.findViewById(R.id.toolbar_title));
-    }
-
-    public void addToolbarBack() {
-        if (getToolbar() == null) {
-            return;
-        }
-        mToolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    public void setTitle(String title) {
-        if (getToolbarTitleView() != null) {
-            getToolbarTitleView().setText(title);
         }
     }
 
     /**
-     * tool bar back button operation
+     * 设置Toolbar的标题
      *
-     * @param item
+     * @param title
      * @return
      */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            finish();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    public BaseActivity setTitle(String title) {
+        if (toolbar != null) {
+            TextView titleView = (TextView) toolbar.findViewById(R.id.toolbar_title);
+            if (titleView != null) {
+                titleView.setText(title);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * 设置Toolbar左上角箭头可用
+     *
+     * @return
+     */
+    public BaseActivity homeAsUp() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        return this;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAfterTransition();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * startActivity兼容处理
+     *
+     * @param intent
+     * @param pairs
+     */
+    public void startAwesomeActivity(Intent intent, Pair<View, String>... pairs) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityCompat.startActivity(this,intent, ActivityOptionsCompat.makeSceneTransitionAnimation(this, pairs).toBundle());
+        } else {
+            startActivity(intent);
+        }
+    }
 }

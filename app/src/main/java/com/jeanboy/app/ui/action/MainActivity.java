@@ -1,10 +1,7 @@
 package com.jeanboy.app.ui.action;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.jeanboy.app.R;
@@ -59,30 +56,15 @@ public class MainActivity extends BaseActivity implements UserContract.View {
 
 
     public void toList(View v) {
-        startActivity(this,new Intent(this, ListActivity.class));
-    }
-
-    public void startActivity(Activity context, Intent intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(context).toBundle());
-        } else {
-            context.startActivity(intent);
-        }
+        startAwesomeActivity(new Intent(this, ListActivity.class));
     }
 
 
     public void doWork(View v) {
-        startActivity(new Intent(this, LoginActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
+        startAwesomeActivity(new Intent(this, LoginActivity.class));
     }
 
     public void doAnim(View v) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {// Android 5.0 使用转场动画
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, v, "robot");
-            startActivity(intent, options.toBundle());
-        } else {//让新的Activity从一个小的范围扩大到全屏
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(v, v.getWidth() / 2, v.getHeight() / 2, 0, 0);
-            startActivity(intent, options.toBundle());
-        }
+        startAwesomeActivity(new Intent(this, LoginActivity.class), Pair.create(v, "robot"));
     }
 }
