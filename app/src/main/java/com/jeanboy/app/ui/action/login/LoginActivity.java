@@ -1,5 +1,6 @@
 package com.jeanboy.app.ui.action.login;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import android.view.View;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
         return R.layout.activity_login;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void setupView() {
         mPresenter = new UserPresenter(this);

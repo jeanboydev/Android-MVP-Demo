@@ -1,70 +1,35 @@
 <resources>
 
 
-    <!--<style name="BaseTheme" parent="android:Theme.Material">-->
-        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:windowBackground">@color/common_bg</item>-->
-    <!--</style>-->
+    <style name="AppTheme" parent="BaseTheme">
+        <!-- 底部栏颜色 -->
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <!-- 关闭ActionBar -->
+        <item name="windowActionBar">false</item>
+        <!-- 隐藏title -->
+        <item name="windowNoTitle">true</item>
+        <!-- 隐藏键盘 -->
+        <item name="android:configChanges">keyboardHidden</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
 
-    <!--<style name="BaseTheme" parent="android:Theme.Material.Light.NoActionBar">-->
-
-        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorAccent">@color/colorAccent</item>-->
-        <!--<item name="android:windowBackground">@color/common_bg</item>-->
-        <!--<item name="android:navigationBarColor">@color/common_bg</item>-->
-    <!--</style>-->
-
-    <style name="BaseThemeRed" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- actionbar默认使用颜色 -->
-        <item name="colorPrimary">@android:color/holo_red_light</item>
-        <!--应用主要暗色调-->
-        <item name="colorPrimaryDark">@android:color/holo_red_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--窗口背景颜色-->
-        <item name="android:windowBackground">@color/common_bg</item>
-        <!--底部栏颜色-->
-        <item name="android:navigationBarColor">@android:color/holo_red_light</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <!-- 启用窗口的内容转换 -->
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
-    <!--<style name="AppTheme" parent="BaseTheme">-->
-        <!--<item name="actionBarSize">@dimen/action_bar_size</item>-->
-        <!--&lt;!&ndash;<item name="android:windowDrawsSystemBarBackgrounds">true</item>&ndash;&gt;-->
-        <!--&lt;!&ndash;<item name="android:statusBarColor">@android:color/transparent</item>&ndash;&gt;-->
-        <!--<item name="android:configChanges">keyboardHidden</item>-->
-        <!--<item name="android:windowSoftInputMode">stateHidden</item>-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
-    <!--</style>-->
 
-
-    <style name="testTheme" parent="BaseTheme">
-        <!-- 允许使用transitions -->
-        <item name="android:windowContentTransitions">true</item>
+    <style name="AppTheme.Explode" parent="AppTheme">
 
         <!-- 指定进入和退出transitions -->
-        <item name="android:windowEnterTransition">@android:transition/slide_bottom</item>
-        <item name="android:windowExitTransition">@android:transition/slide_bottom</item>
+        <item name="android:windowEnterTransition">@transition/explode</item>
+        <item name="android:windowExitTransition">@transition/explode</item>
+
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
 
         <!-- 指定shared element transitions -->
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
-    </style>
-
-
-    <style name="explodeTheme" parent="BaseTheme">
-        <!-- 允许使用transitions -->
-        <item name="android:windowContentTransitions">true</item>
-
-        <!-- 指定进入和退出transitions -->
-        <item name="android:windowEnterTransition">@android:transition/explode</item>
-        <item name="android:windowExitTransition">@android:transition/explode</item>
-
-        <!-- 指定shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">@android:transition/explode</item>
-        <item name="android:windowSharedElementExitTransition">@android:transition/explode</item>
     </style>
 </resources>

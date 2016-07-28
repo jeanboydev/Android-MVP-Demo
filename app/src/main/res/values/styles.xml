@@ -1,31 +1,38 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- ActionBar颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- 控件默认颜色 -->
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- ActionBar标题文字文本颜色 -->
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <!-- ActionBar高度 -->
+        <item name="android:actionBarSize">@dimen/action_bar_size</item>
+        <!-- 窗口背景颜色 -->
         <item name="android:windowBackground">@color/common_bg</item>
     </style>
 
     <style name="AppTheme" parent="BaseTheme">
-        <item name="actionBarSize">@dimen/action_bar_size</item>
+        <!-- 关闭ActionBar -->
+        <item name="windowActionBar">false</item>
+        <!-- 隐藏title -->
+        <item name="windowNoTitle">true</item>
+        <!-- 隐藏键盘 -->
         <item name="android:configChanges">keyboardHidden</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="FullscreenTheme" parent="AppTheme">
+    <style name="AppTheme.FullScreen" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBarOverlay">false</item>
-        <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <!--<item name="android:windowBackground">@drawable/bg_splash</item>-->

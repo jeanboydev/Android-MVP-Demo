@@ -1,5 +1,6 @@
 package com.jeanboy.app.ui.action;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -31,7 +32,6 @@ public class MainActivity extends BaseActivity implements UserContract.View {
 
     @Override
     public void setupView() {
-        setSwipeBackEnable(false);
         setTitle("首页");
         mPresenter = new UserPresenter(this);
     }
@@ -59,13 +59,20 @@ public class MainActivity extends BaseActivity implements UserContract.View {
 
 
     public void toList(View v) {
-        startActivity(new Intent(this, ListActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
-
+        startActivity(this,new Intent(this, ListActivity.class));
     }
+
+    public void startActivity(Activity context, Intent intent) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(context).toBundle());
+        } else {
+            context.startActivity(intent);
+        }
+    }
+
 
     public void doWork(View v) {
         startActivity(new Intent(this, LoginActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
-
     }
 
     public void doAnim(View v) {

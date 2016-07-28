@@ -1,6 +1,7 @@
 package com.jeanboy.app.base;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
@@ -8,20 +9,16 @@ import android.widget.TextView;
 import com.jeanboy.app.R;
 
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
 /**
  * Created by Next on 2016/7/4.
  */
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public String TAG;
 
     public Toolbar mToolbar;
-
-    private SwipeBackLayout mSwipeBackLayout;
 
     public BaseActivity() {
         TAG = this.getClass().getSimpleName();
@@ -41,9 +38,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
         setContentView(getLayoutId());
         TAG = getTag(BaseActivity.class).getSimpleName();
         ButterKnife.bind(this);
-
-        mSwipeBackLayout = getSwipeBackLayout();
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
         setupActionBar();
         setupView();
