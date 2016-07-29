@@ -2,6 +2,7 @@ package com.jeanboy.app.ui.action.login;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.Bundle;
 import android.view.View;
 
 import com.jeanboy.app.R;
@@ -30,7 +31,7 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void setupView() {
+    public void setupView(Bundle savedInstanceState) {
         setTitle("登录").homeAsUp();
         mPresenter = new UserPresenter(this);
     }

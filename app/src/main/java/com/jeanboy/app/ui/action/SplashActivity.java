@@ -43,7 +43,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    public void setupView() {
+    public void setupView(Bundle savedInstanceState) {
         tv_version.setText(AppUtil.getVersionName(this));
     }
 

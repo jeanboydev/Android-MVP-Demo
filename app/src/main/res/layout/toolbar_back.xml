@@ -4,16 +4,14 @@
     android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    app:elevation="0dp">
+    android:theme="@style/AppTheme.AppBarOverlay"><!-- app:elevation="0dp" 投影 -->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 

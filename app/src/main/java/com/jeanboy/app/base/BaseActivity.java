@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract int getLayoutId();
 
-    public abstract void setupView();
+    public abstract void setupView(Bundle savedInstanceState);
 
     public abstract void initData();
 
@@ -45,8 +45,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupToolbar();
-        setupView();
+        setupStatusBar();
+        setupView(savedInstanceState);
         initData();
+    }
+
+    protected void setupStatusBar() {
+//        StatusBarUtil.setTranslucent(this, getResources().getColor(R.color.colorPrimary));
+//        StatusBarUtil.setTranslucent(this);
     }
 
     /**

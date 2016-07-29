@@ -11,9 +11,13 @@
         <!-- 隐藏键盘 -->
         <item name="android:configChanges">keyboardHidden</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
-
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- 状态栏颜色 -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <!-- 是否在window里面绘制status bar -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- 状态栏是否半透明 -->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+
         <!-- 启用窗口的内容转换 -->
         <item name="android:windowContentTransitions">true</item>
     </style>
