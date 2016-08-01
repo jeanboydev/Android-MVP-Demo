@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/action_bar"
-        layout="@layout/toolbar_back" />
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"

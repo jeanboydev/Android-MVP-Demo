@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/action_bar"
-        layout="@layout/toolbar_single_title" />
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
