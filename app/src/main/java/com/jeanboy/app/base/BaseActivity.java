@@ -1,7 +1,6 @@
 package com.jeanboy.app.base;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -10,10 +9,10 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jeanboy.app.R;
+import com.jeanboy.common.utils.StatusBarUtil;
 
 import butterknife.ButterKnife;
 
@@ -70,16 +69,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public BaseActivity isDetailPage() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        } else {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    public BaseActivity addMenu(int layout, Toolbar.OnMenuItemClickListener itemClickListener) {
+        if (toolbar == null) {
+            toolbar.inflateMenu(layout);
+            toolbar.setOnMenuItemClickListener(itemClickListener);
         }
+        return this;
+    }
+
+    public BaseActivity isTransparent() {
+        StatusBarUtil.setTranslucent(this);
+        return this;
+    }
+
+    public BaseActivity setStatusBarColor(int color) {
+        StatusBarUtil.setColor(this, color);
         return this;
     }
 

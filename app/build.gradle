@@ -51,9 +51,10 @@ dependencies {
 
     compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
 
-
-    compile 'com.roughike:bottom-bar:1.4.0.1'//Bottom navigation
+    //Bottom navigation
 
     // Dependencies for local unit tests
     testCompile "junit:junit:$rootProject.junitVersion"
+    compile 'com.roughike:bottom-bar:1.4.0.1'
+    compile 'com.android.support:support-v4:23.4.0'
 }

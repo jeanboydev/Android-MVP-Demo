@@ -1,84 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.jeanboy.app.ui.action.MainActivity">
+    tools:context=".ui.action.main.MainActivity">
 
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/toolbar" />
+    <!--<include-->
+    <!--android:id="@+id/action_bar"-->
+    <!--layout="@layout/toolbar" />-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/action_bar"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/action_bar"-->
+    <!--android:orientation="vertical"-->
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+    <!--android:paddingTop="@dimen/activity_vertical_margin">-->
 
-        <!--
+    <!--&lt;!&ndash;-->
 
-            style="@style/Widget.AppCompat.Button"
-            style="@style/Widget.AppCompat.Button.Colored"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        -->
+    <!--style="@style/Widget.AppCompat.Button"-->
+    <!--style="@style/Widget.AppCompat.Button.Colored"-->
+    <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+    <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
+    <!--&ndash;&gt;-->
 
-        <Button
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="toList"
-            android:text="ListActivity" />
+    <!--<Button-->
+    <!--style="@style/Widget.AppCompat.Button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:onClick="toList"-->
+    <!--android:text="ListActivity" />-->
 
-        <Button
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="doWork"
-            android:text="请求" />
+    <!--<Button-->
+    <!--style="@style/Widget.AppCompat.Button.Colored"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:onClick="doWork"-->
+    <!--android:text="请求" />-->
 
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="doWork"
-            android:text="请求" />
+    <!--<Button-->
+    <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:onClick="doWork"-->
+    <!--android:text="请求" />-->
 
-        <Button
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:onClick="doWork"
-            android:text="请求" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:onClick="doAnim"
-                android:src="@drawable/bg"
-                android:transitionName="robot" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="共享元素"
-                android:textColor="@android:color/black"/>
-        </LinearLayout>
+    <!--<Button-->
+    <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:onClick="doWork"-->
+    <!--android:text="请求" />-->
 
 
-    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:gravity="center_horizontal">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:onClick="doAnim"-->
+    <!--android:src="@drawable/bg"-->
+    <!--android:transitionName="robot" />-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="共享元素"-->
+    <!--android:textColor="@android:color/black"/>-->
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
 
 
 </RelativeLayout>

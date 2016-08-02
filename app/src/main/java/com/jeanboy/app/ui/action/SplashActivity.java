@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseActivity;
 import com.jeanboy.app.base.MainApplication;
+import com.jeanboy.app.ui.action.main.MainActivity;
 import com.jeanboy.common.utils.AppUtil;
 
 import butterknife.BindView;
