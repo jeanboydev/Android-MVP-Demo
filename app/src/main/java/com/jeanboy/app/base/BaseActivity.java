@@ -138,6 +138,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+
+
     /**
      * startActivity兼容处理
      *
