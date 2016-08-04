@@ -1,12 +1,16 @@
 package com.jeanboy.cropview.cropper;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 
 import com.jeanboy.cropview.util.Utils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by Next on 2016/8/3.
@@ -20,6 +24,8 @@ public class CropperManager {
     private static CropperManager instance;
 
     private CropperHandler cropperHandler;
+
+    private Uri cameraCacheUri;
 
     private CropperManager() {
     }
@@ -41,21 +47,22 @@ public class CropperManager {
 
     public void pickFromCamera() {
         if (cropperHandler == null) return;
-        cropperHandler.getContext().startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).
-                        putExtra(MediaStore.EXTRA_OUTPUT, ""),// FIXME: 拍照保存路径
+        createCameraUri();//生成相机缓存文件
+        cropperHandler.getActivity().startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).
+                        putExtra(MediaStore.EXTRA_OUTPUT, cameraCacheUri),
                 CropperParams.REQUEST_PICK_CAMERA);
 
     }
 
     public void pickFromGallery() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            cropperHandler.getContext().startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"),
+            cropperHandler.getActivity().startActivityForResult(new Intent(Intent.ACTION_GET_CONTENT).setType("image/*"),
                     CropperParams.REQUEST_PICK_IMAGE);
         } else {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("image/*");
-            cropperHandler.getContext().startActivityForResult(intent, CropperParams.REQUEST_KITKAT_PICK_IMAGE);
+            cropperHandler.getActivity().startActivityForResult(intent, CropperParams.REQUEST_KITKAT_PICK_IMAGE);
         }
     }
 
@@ -65,11 +72,17 @@ public class CropperManager {
             cropperHandler.onCropCancel();
         } else if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case CropperParams.REQUEST_PICK_CAMERA:// FIXME: 相机拍完照回调处理，去裁切
+                case CropperParams.REQUEST_PICK_CAMERA://相机拍完照回调处理，去裁切
+                    notifyImageToGallery(cropperHandler.getActivity(), cameraCacheUri);
+                    cropperHandler.getActivity().startActivityForResult(new Intent(cropperHandler.getActivity(), CropActivity.class)
+                                    .putExtra(CropperParams.PICK_URI, cameraCacheUri)
+                                    .putExtra(CropperParams.ASPECT_X, cropperHandler.getParams().aspectX)
+                                    .putExtra(CropperParams.ASPECT_Y, cropperHandler.getParams().aspectY),
+                            CropperParams.REQUEST_CROPPED);
                     break;
                 case CropperParams.REQUEST_PICK_IMAGE:
                     if (result != null) {
-                        cropperHandler.getContext().startActivityForResult(new Intent(cropperHandler.getContext(), CropActivity.class)
+                        cropperHandler.getActivity().startActivityForResult(new Intent(cropperHandler.getActivity(), CropActivity.class)
                                         .putExtra(CropperParams.PICK_URI, result.getData())
                                         .putExtra(CropperParams.ASPECT_X, cropperHandler.getParams().aspectX)
                                         .putExtra(CropperParams.ASPECT_Y, cropperHandler.getParams().aspectY),
@@ -80,8 +93,8 @@ public class CropperManager {
                     break;
                 case CropperParams.REQUEST_KITKAT_PICK_IMAGE:
                     if (result != null) {
-                        cropperHandler.getContext().startActivityForResult(new Intent(cropperHandler.getContext(), CropActivity.class)
-                                        .putExtra(CropperParams.PICK_URI, Utils.ensureUriPermission(cropperHandler.getContext(), result))
+                        cropperHandler.getActivity().startActivityForResult(new Intent(cropperHandler.getActivity(), CropActivity.class)
+                                        .putExtra(CropperParams.PICK_URI, Utils.ensureUriPermission(cropperHandler.getActivity(), result))
                                         .putExtra(CropperParams.ASPECT_X, cropperHandler.getParams().aspectX)
                                         .putExtra(CropperParams.ASPECT_Y, cropperHandler.getParams().aspectY),
                                 CropperParams.REQUEST_CROPPED);
@@ -91,12 +104,40 @@ public class CropperManager {
                     break;
                 case CropperParams.REQUEST_CROPPED:
                     if (result != null) {
-                        cropperHandler.onCropped(Uri.parse(result.getStringExtra(CropperParams.PICK_URI)));
+                        Uri uri = result.getExtras().getParcelable(CropperParams.PICK_URI);
+                        cropperHandler.onCropped(uri);
                     } else {
                         cropperHandler.onCropFailed(MSG_ERROR);
                     }
                     break;
             }
         }
+    }
+
+    public void createCameraUri() {
+        //创建相机拍照文件保存目录，默认保存在/mnt/sdcard/Android/data/<包名>/cache
+        cameraCacheUri = Uri.fromFile(cropperHandler.getActivity().getExternalCacheDir()).buildUpon().appendPath(getCameraFileName()).build();
+    }
+
+    private String getCameraFileName() {
+        return "cropper_" + System.currentTimeMillis() + ".jpg";
+    }
+
+    /**
+     * 同步图片到系统图库
+     *
+     * @param context
+     * @param uri
+     */
+    public void notifyImageToGallery(Context context, Uri uri) {
+        //把文件插入到系统图库
+        try {
+            File file = new File(uri.getPath());
+            MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), file.getName(), null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 通知图库更新
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
     }
 }

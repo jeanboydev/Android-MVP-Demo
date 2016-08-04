@@ -1,5 +1,6 @@
 package com.jeanboy.app.ui.action.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -103,8 +104,16 @@ public class MainActivity extends BaseActivity {
         currentTabIndex = index;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (musicFragment != null) {
+            musicFragment.onActivityResult(requestCode, resultCode, data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-//    public void toList(View v) {
+
+    //    public void toList(View v) {
 //        startAwesomeActivity(new Intent(this, ListActivity.class));
 //    }
 //

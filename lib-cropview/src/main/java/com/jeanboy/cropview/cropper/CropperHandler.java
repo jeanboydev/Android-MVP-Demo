@@ -8,7 +8,7 @@ import android.net.Uri;
  */
 public interface CropperHandler {
 
-    Activity getContext();
+    Activity getActivity();
 
     CropperParams getParams();
 

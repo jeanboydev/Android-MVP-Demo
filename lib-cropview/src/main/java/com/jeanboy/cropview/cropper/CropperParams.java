@@ -5,6 +5,10 @@ package com.jeanboy.cropview.cropper;
  */
 public class CropperParams {
 
+    public CropperParams(int aspectX, int aspectY) {
+        this.aspectX = aspectX;
+        this.aspectY = aspectY;
+    }
 
     public static final String PICK_URI = "pick_uri";
     public static final String ASPECT_X = "aspectX";
@@ -18,4 +22,6 @@ public class CropperParams {
 
     public int aspectX = DEFAULT_ASPECT;
     public int aspectY = DEFAULT_ASPECT;
+
+
 }

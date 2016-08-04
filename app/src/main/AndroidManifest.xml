@@ -20,11 +20,11 @@
             android:name=".ui.action.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.FullScreen">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.action.main.MainActivity"
@@ -42,13 +42,8 @@
             android:name=".ui.action.info.InfoActivity"
             android:theme="@style/AppTheme.SlideHorizontal" />
         <activity
-            android:name="com.isseiaoki.simplecropview.crop.CropActivity"
+            android:name="com.jeanboy.cropview.cropper.CropActivity"
             android:theme="@style/AppTheme.Fade">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
     </application>
