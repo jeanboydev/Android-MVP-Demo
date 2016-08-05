@@ -61,7 +61,7 @@ dependencies {
 
     compile project(path: ':lib-cropview')
 
-
     //Bottom navigation
     compile 'com.roughike:bottom-bar:1.4.0.1'
+    compile project(path: ':lib-header-footer-recyclerview')
 }

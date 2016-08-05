@@ -1,12 +1,9 @@
 package com.jeanboy.app.ui.action.info;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseActivity;
@@ -40,19 +37,19 @@ public class ListActivity extends BaseActivity {
         setTitle("列表").homeAsUp();
 
         dataList = new ArrayList<>();
-        listAdapter = new ListAdapter(dataList);
+        listAdapter = new ListAdapter(this, dataList, R.layout.item_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
         list.setHasFixedSize(true);
         list.setAdapter(listAdapter);
         list.setItemAnimator(new DefaultItemAnimator());
 
-        listAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-                startAwesomeActivity(new Intent(ListActivity.this, InfoActivity.class), Pair.create(v, "info_thumb"));
-            }
-        });
+//        listAdapter.setOnItemClickListener(new ListAdapter.OnItemClickListener() {
+//            @Override
+//            public void onClick(View v, int position) {
+//                startAwesomeActivity(new Intent(ListActivity.this, InfoActivity.class), Pair.create(v, "info_thumb"));
+//            }
+//        });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.jeanboy.common.adapter;
+package com.jeanboy.common.adapter.listview;
 
 import android.content.Context;
 import android.util.SparseArray;
