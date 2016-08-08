@@ -17,9 +17,6 @@ public class ViewHolder {
     private int mPosition;
     private View mConvertView;
 
-    public View getConvertView() {
-        return mConvertView;
-    }
 
     public ViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
         this.mViews = new SparseArray<>();
@@ -37,6 +34,10 @@ public class ViewHolder {
             holder.mPosition = position;
             return holder;
         }
+    }
+
+    public View getConvertView() {
+        return mConvertView;
     }
 
     /**

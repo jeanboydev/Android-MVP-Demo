@@ -12,28 +12,28 @@ import java.util.List;
  * Created by next on 2016/3/7.
  */
 public abstract class CommonAdapter<T> extends BaseAdapter {
-    protected Context mContext;
-    protected List<T> mDatas;
-    protected LayoutInflater mInflater;
-    protected int mlayoutId;
+    protected Context context;
+    protected List<T> dataList;
+    protected LayoutInflater inflater;
+    protected int layoutId;
 
-    public CommonAdapter(Context context, List<T> datas, int layoutId) {
-        this.mContext = context;
-        this.mDatas = datas;
-        this.mlayoutId = layoutId;
-        mInflater = LayoutInflater.from(context);
+    public CommonAdapter(Context context, List<T> dataList, int layoutId) {
+        this.context = context;
+        this.dataList = dataList;
+        this.layoutId = layoutId;
+        inflater = LayoutInflater.from(context);
     }
 
     public void setDatasList(List<T> mDatas_){
-        if(this.mDatas == mDatas_){
+        if(this.dataList == mDatas_){
             notifyDataSetChanged();
             return;
         }
 
-        if(this.mDatas != null){
-            this.mDatas = null;
+        if(this.dataList != null){
+            this.dataList = null;
         }
-        this.mDatas = mDatas_;
+        this.dataList = mDatas_;
         notifyDataSetChanged();
     }
 
@@ -42,7 +42,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return mDatas.size();
+        return dataList.size();
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
      */
     @Override
     public T getItem(int position) {
-        return mDatas.get(position);
+        return dataList.get(position);
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder = ViewHolder.get(mContext, convertView, parent, mlayoutId, position);
+        ViewHolder holder = ViewHolder.get(context, convertView, parent, layoutId, position);
         convert(holder, getItem(position), position);
         return holder.getConvertView();
     }

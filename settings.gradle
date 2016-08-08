@@ -1,1 +1,1 @@
-include ':app', ':lib-cropview', ':lib-header-footer-recyclerview'
+include ':app', ':lib-cropview', ':lib-recyclerviewhelper'

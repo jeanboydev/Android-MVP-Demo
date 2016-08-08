@@ -2,8 +2,8 @@ package com.jeanboy.app.ui.adapter;
 
 import android.content.Context;
 
-import com.jeanboy.common.adapter.recyclerview.CommonAdapter;
-import com.jeanboy.common.adapter.recyclerview.ViewHolder;
+import com.jeanboy.recyclerviewhelper.adapter.CommonAdapter;
+import com.jeanboy.recyclerviewhelper.adapter.ViewHolder;
 
 import java.util.List;
 
