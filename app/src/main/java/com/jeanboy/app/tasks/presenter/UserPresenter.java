@@ -2,6 +2,7 @@ package com.jeanboy.app.tasks.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.model.repositories.UserRepository;
 import com.jeanboy.app.tasks.contract.UserContract;
@@ -31,12 +32,13 @@ public class UserPresenter implements UserContract.Presenter {
         mUserRepository = UserRepository.getInstance();
     }
 
+
     @Override
-    public Call<UserBean> logIn(String username, String password, final RequestCallback<UserBean> callback) {
+    public Call<TokenBean> logIn(String username, String password, final RequestCallback<TokenBean> callback) {
         mUserView.setLoadingIndicator(true);
-        return mUserRepository.logIn(username, password, new RequestCallback<UserBean>() {
+        return mUserRepository.logIn(username, password, new RequestCallback<TokenBean>() {
             @Override
-            public void success(Response<UserBean> response) {
+            public void success(Response<TokenBean> response) {
                 mUserRepository.refresh();//用户登陆，需要重新刷新缓存信息
                 mUserView.setLoadingIndicator(false);
                 callback.success(response);

@@ -1,5 +1,6 @@
 package com.jeanboy.app.model.repositories;
 
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.model.sources.UserDataSource;
 import com.jeanboy.app.model.sources.local.UserLocalDataSource;
@@ -46,8 +47,9 @@ public class UserRepository implements UserDataSource, UserRemote {
         INSTANCE = null;
     }
 
+
     @Override
-    public Call<UserBean> logIn(String username, String password, RequestCallback<UserBean> callback) {
+    public Call<TokenBean> logIn(String username, String password, RequestCallback<TokenBean> callback) {
         return mRemoteDataSource.logIn(username, password, callback);
     }
 

@@ -1,6 +1,7 @@
 package com.jeanboy.app.model.sources.remote;
 
 import com.jeanboy.app.api.ApiManager;
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.manager.net.RequestCallback;
 
@@ -27,8 +28,8 @@ public class UserRemoteDataSource implements UserRemote {
 
 
     @Override
-    public Call<UserBean> logIn(String username, String password, final RequestCallback<UserBean> callback) {
-        Call<UserBean> call = ApiManager.getInstance().userApi.logIn(username, password);
+    public Call<TokenBean> logIn(String username, String password, RequestCallback<TokenBean> callback) {
+        Call<TokenBean> call = ApiManager.getInstance().userApi.logIn(username, password);
         ApiManager.getInstance().doBack(call, callback);
         return call;
     }

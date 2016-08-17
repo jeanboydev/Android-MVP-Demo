@@ -1,5 +1,6 @@
 package com.jeanboy.app.model.sources.remote;
 
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.manager.net.RequestCallback;
 
@@ -11,7 +12,7 @@ import retrofit2.Call;
  */
 public interface UserRemote {
 
-    Call<UserBean> logIn(String username, String password, RequestCallback<UserBean> callback);
+    Call<TokenBean> logIn(String username, String password, RequestCallback<TokenBean> callback);
 
     Call<UserBean> logOut(String username, String password, RequestCallback<UserBean> callback);
 

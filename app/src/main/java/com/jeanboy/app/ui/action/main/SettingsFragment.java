@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseFragment;
+import com.jeanboy.app.ui.action.login.LoginActivity;
 import com.jeanboy.cropview.util.Utils;
 
 import net.bither.util.NativeUtil;
@@ -34,6 +35,8 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
 
     @BindView(R.id.btn_from_gallery)
     Button btn_from_gallery;
+    @BindView(R.id.btn_login)
+    Button btn_login;
 
     public SettingsFragment() {
     }
@@ -58,6 +61,7 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
     public void setupView(View view, Bundle savedInstanceState) {
 
         btn_from_gallery.setOnClickListener(this);
+        btn_login.setOnClickListener(this);
 
     }
 
@@ -71,6 +75,9 @@ public class SettingsFragment extends BaseFragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.btn_from_gallery:
                 pickFromGallery();
+                break;
+            case R.id.btn_login:
+                (getActivity()).startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
         }
     }

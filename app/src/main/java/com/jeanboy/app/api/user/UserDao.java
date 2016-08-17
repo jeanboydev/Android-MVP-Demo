@@ -1,9 +1,12 @@
 package com.jeanboy.app.api.user;
 
 import com.jeanboy.app.config.ApiConfig;
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -57,22 +60,20 @@ public interface UserDao {
 
 
     /**
-     * @Body    适用范围：POST/PUT   作用：
-     * @Field/@FieldMap   适用范围：POST需要FormUrlEncoded 作用：POST参数
-     * @Header/@Headers/@HeaderMap  适用范围：GET    作用：头参数
-     * @Multipart   适用范围：POST 搭配Part/PartMap 作用：可以方便批量上传
-     * @Path    适用范围：*   作用：url参数替换
+     * @Body 适用范围：POST/PUT   作用：
+     * @Field/@FieldMap 适用范围：POST需要FormUrlEncoded 作用：POST参数
+     * @Header/@Headers/@HeaderMap 适用范围：GET    作用：头参数
+     * @Multipart 适用范围：POST 搭配Part/PartMap 作用：可以方便批量上传
+     * @Path 适用范围：*   作用：url参数替换
      * @Query/@QueryMap 适用范围：*  作用：url后面添加参数
-     *
      */
 
 
     @GET(ApiConfig.PATH_USERS + "/{id}")
     Call<UserBean> getInfo(@Path("id") String id);
 
-    @FormUrlEncoded
-    @POST(ApiConfig.PATH_USERS)
-    Call<UserBean> logIn(@Query("client") String client, @Field("username") String username, @Field("password") String password);
+    @POST(ApiConfig.PATH_TOKENS)
+    Call<TokenBean> logIn(@Query("client") String client, @Body RequestBody params);
 
     @FormUrlEncoded
     @POST(ApiConfig.PATH_USERS)

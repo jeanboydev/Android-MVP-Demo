@@ -22,6 +22,7 @@ public class ApiManager {
     private static ApiManager instance = null;
 
     private ApiManager() {
+
     }
 
     public static ApiManager getInstance() {

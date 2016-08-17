@@ -1,23 +1,35 @@
 package com.jeanboy.app.ui.action.login;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
+import com.alibaba.fastjson.JSON;
 import com.jeanboy.app.R;
 import com.jeanboy.app.base.BaseActivity;
+import com.jeanboy.app.model.bean.TokenBean;
 import com.jeanboy.app.model.bean.UserBean;
 import com.jeanboy.app.tasks.contract.UserContract;
 import com.jeanboy.app.tasks.presenter.UserPresenter;
+import com.jeanboy.common.utils.ToastUtil;
 import com.jeanboy.manager.net.RequestCallback;
 
+import butterknife.BindView;
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements UserContract.View {
 
 
     private UserContract.Presenter mPresenter;
+
+
+    @BindView(R.id.et_username)
+    EditText et_username;
+    @BindView(R.id.et_password)
+    EditText et_password;
+
 
     @Override
     public Class getTag(Class clazz) {
@@ -29,7 +41,6 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
         return R.layout.activity_login;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void setupView(Bundle savedInstanceState) {
         setTitle("登录").homeAsUp();
@@ -49,7 +60,7 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
 
     @Override
     public void toast(String msg) {
-
+        ToastUtil.toast(this, msg);
     }
 
     @Override
@@ -58,32 +69,21 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
-        }
-    }
-
     public void toLogin(View v) {
-        mPresenter.logIn("", "", new RequestCallback<UserBean>() {
-            @Override
-            public void success(Response<UserBean> response) {
+        String username = et_username.getText().toString().trim();
+        String password = et_password.getText().toString().trim();
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) return;
 
+        mPresenter.logIn(username, password, new RequestCallback<TokenBean>() {
+            @Override
+            public void success(Response<TokenBean> response) {
+                TokenBean tokenBean = response.body();
+                Log.e(TAG, "==success===" + JSON.toJSONString(tokenBean));
             }
 
             @Override
             public void error(String msg) {
-
+                Log.e(TAG, "==error===" + msg);
             }
         });
     }

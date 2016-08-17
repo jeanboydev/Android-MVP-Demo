@@ -6,4 +6,5 @@ package com.jeanboy.app.config;
 public class ApiConfig {
 
     public static final String PATH_USERS = "users";
+    public static final String PATH_TOKENS = "tokens";
 }
