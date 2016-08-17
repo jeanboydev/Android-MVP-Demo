@@ -54,6 +54,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
+
     public void setupView(View view, Bundle savedInstanceState) {
         setTitle("首页");
 

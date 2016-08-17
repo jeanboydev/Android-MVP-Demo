@@ -2,8 +2,8 @@ package com.jeanboy.app.api;
 
 import android.text.TextUtils;
 
+import com.jeanboy.app.api.file.FileApi;
 import com.jeanboy.app.api.user.UserApi;
-import com.jeanboy.manager.net.NetManager;
 import com.jeanboy.manager.net.RequestCallback;
 
 import java.io.IOException;
@@ -16,12 +16,12 @@ import retrofit2.Response;
  */
 public class ApiManager {
 
-    public UserApi userApi;
+    public UserApi userApi = new UserApi();
+    public FileApi fileApi = new FileApi();
 
     private static ApiManager instance = null;
 
     private ApiManager() {
-        userApi = NetManager.getInstance().create(UserApi.class);
     }
 
     public static ApiManager getInstance() {
@@ -40,7 +40,7 @@ public class ApiManager {
         call.enqueue(new retrofit2.Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
-                if (response.code() >= 200 && response.code() < 300) {
+                if (response.isSuccessful()) {
                     callback.success(response);
                 } else {
                     String msg = null;
@@ -62,5 +62,28 @@ public class ApiManager {
                 callback.error(t.getMessage());
             }
         });
+    }
+
+    public <T> void doSyncBack(Call<T> call, RequestCallback<T> callback) {
+        try {
+            Response<T> response = call.execute();
+            if (response.isSuccessful()) {
+                callback.success(response);
+            } else {
+                String msg = null;
+                try {
+                    msg = response.errorBody().string();// TODO:处理自定义错误信息
+                } catch (IOException e) {
+                    callback.error(e.getMessage());
+                }
+                if (TextUtils.isEmpty(msg)) {
+                    msg = response.message();
+                }
+                callback.error(msg);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            callback.error(e.getMessage());
+        }
     }
 }

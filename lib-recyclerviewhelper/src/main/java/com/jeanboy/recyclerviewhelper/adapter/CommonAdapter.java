@@ -1,8 +1,7 @@
-package com.jeanboy.common.adapter.recyclerview;
+package com.jeanboy.recyclerviewhelper.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +15,6 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     private Context context;
     private List<T> dataList;
     private int layoutId;
-    private LayoutInflater inflater;
 
     private OnItemClickListener onItemClickListener;
 
@@ -24,21 +22,15 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         this.context = context;
         this.dataList = dataList;
         this.layoutId = layoutId;
-        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder holder = ViewHolder.createViewHolder(context, parent, layoutId);
-        setListener(parent, holder, viewType);
-        return null;
+        ViewHolder holder = ViewHolder.get(context, parent, layoutId);
+        setListener(holder);
+        return holder;
     }
 
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -47,11 +39,10 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
     @Override
     public int getItemCount() {
-        int itemCount = dataList.size();
-        return itemCount;
+        return dataList.size();
     }
 
-    public void setListener(final ViewGroup parent, final ViewHolder viewHolder, int viewType) {
+    public void setListener(final ViewHolder viewHolder) {
         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +58,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     public abstract void convert(ViewHolder holder, T t, int position);
 
     public interface OnItemClickListener {
-        void onItemClick(View view, RecyclerView.ViewHolder holder, int position);
+        void onItemClick(View view, ViewHolder holder, int position);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

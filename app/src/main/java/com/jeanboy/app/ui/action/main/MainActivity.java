@@ -109,6 +109,9 @@ public class MainActivity extends BaseActivity {
         if (musicFragment != null) {
             musicFragment.onActivityResult(requestCode, resultCode, data);
         }
+        if (settingsFragment != null) {
+            settingsFragment.onActivityResult(requestCode, resultCode, data);
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

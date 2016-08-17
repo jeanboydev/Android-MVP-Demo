@@ -1,19 +1,16 @@
-package com.jeanboy.common.adapter.recyclerview;
+package com.jeanboy.recyclerviewhelper.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,22 +30,21 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mContext = context;
         mConvertView = itemView;
-        mViews = new SparseArray<View>();
+        mViews = new SparseArray<>();
     }
 
 
-    public static ViewHolder createViewHolder(Context context, View itemView) {
-        ViewHolder holder = new ViewHolder(context, itemView);
-        return holder;
+    public static ViewHolder get(Context context, ViewGroup parent, int layoutId) {
+        View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
+        return new ViewHolder(context, itemView);
     }
 
-    public static ViewHolder createViewHolder(Context context,
-                                              ViewGroup parent, int layoutId) {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
-                false);
-        ViewHolder holder = new ViewHolder(context, itemView);
-        return holder;
+
+
+    public View getConvertView() {
+        return mConvertView;
     }
+
 
     /**
      * 通过viewId获取控件
@@ -65,9 +61,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
-    public View getConvertView() {
-        return mConvertView;
-    }
 
 
     /****以下为辅助方法*****/
@@ -118,26 +111,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ViewHolder setTextColor(int viewId, int textColor) {
         TextView view = getView(viewId);
         view.setTextColor(textColor);
-        return this;
-    }
-
-    public ViewHolder setTextColorRes(int viewId, int textColorRes) {
-        TextView view = getView(viewId);
-        view.setTextColor(mContext.getResources().getColor(textColorRes));
-        return this;
-    }
-
-    @SuppressLint("NewApi")
-    public ViewHolder setAlpha(int viewId, float value) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getView(viewId).setAlpha(value);
-        } else {
-            // Pre-honeycomb hack to set Alpha value
-            AlphaAnimation alpha = new AlphaAnimation(value, value);
-            alpha.setDuration(0);
-            alpha.setFillAfter(true);
-            getView(viewId).startAnimation(alpha);
-        }
         return this;
     }
 
