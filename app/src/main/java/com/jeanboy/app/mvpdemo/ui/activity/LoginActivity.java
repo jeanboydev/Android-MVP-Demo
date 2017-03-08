@@ -5,8 +5,8 @@ import android.widget.EditText;
 
 import com.jeanboy.app.mvpdemo.R;
 import com.jeanboy.app.mvpdemo.base.BaseActivity;
-import com.jeanboy.app.mvpdemo.common.utils.ToastUtil;
 import com.jeanboy.app.mvpdemo.tasks.contract.UserContract;
+import com.jeanboy.lib.common.utils.ToastUtil;
 
 import butterknife.BindView;
 

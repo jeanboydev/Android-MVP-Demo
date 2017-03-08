@@ -1,4 +1,4 @@
-package com.jeanboy.app.mvpdemo.common.task;
+package com.jeanboy.app.mvpdemo.component.task;
 
 import com.jeanboy.app.mvpdemo.model.bean.FileBean;
 

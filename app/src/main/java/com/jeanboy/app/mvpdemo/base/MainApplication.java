@@ -3,6 +3,13 @@ package com.jeanboy.app.mvpdemo.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.jeanboy.app.mvpdemo.component.handler.GlideHandler;
+import com.jeanboy.app.mvpdemo.component.handler.GreenDaoHandler;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
+import com.jeanboy.lib.common.manager.database.DBManager;
+import com.jeanboy.lib.common.manager.images.ImagesManager;
+import com.jeanboy.lib.common.manager.net.NetManager;
+
 /**
  * Created by Next on 2016/7/4.
  */
@@ -27,12 +34,12 @@ public class MainApplication extends Application {
     public void init(Context context) {
 //        //初始化crash
 //        CrashHandler.getInstance().init(context.getApplicationContext());
-//        //数据库
-//        DBManager.getInstance().build(context.getApplicationContext(), new GreeDaoHandler());
-//        //图片
-//        ImagesManager.getInstance().build(context.getApplicationContext(), new GlideHandler());
-//        //网络
-//        NetManager.getInstance().build(context.getApplicationContext(), new OkHttpHandler());
+        //数据库
+        DBManager.getInstance().build(context.getApplicationContext(), new GreenDaoHandler());
+        //图片
+        ImagesManager.getInstance().build(context.getApplicationContext(), new GlideHandler());
+        //网络
+        NetManager.getInstance().build(context.getApplicationContext(), new OkHttpHandler());
     }
 
 

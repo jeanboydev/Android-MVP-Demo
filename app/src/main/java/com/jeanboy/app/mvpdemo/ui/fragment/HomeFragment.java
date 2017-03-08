@@ -4,9 +4,14 @@ package com.jeanboy.app.mvpdemo.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.jeanboy.app.mvpdemo.R;
@@ -51,7 +56,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void setupView(View view, Bundle savedInstanceState) {
-        setToolsBarTitle("首页").isTranslucent().addToolbarMarginTop();
+        setToolsBarTitle("首页").hasMenu().isTranslucent().addToolbarMarginTop();
 
         ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(getActivity(), ((MainActivity) getActivity()).getDrawerLayout(),
                 getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -72,6 +77,25 @@ public class HomeFragment extends BaseFragment {
                 ((MainActivity) getActivity()).startAwesomeActivity(new Intent(getActivity(), InfoActivity.class), Pair.create(holder.getView(R.id.iv_thumb), "info_thumb"));
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.activity_main_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

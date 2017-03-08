@@ -2,10 +2,6 @@ package com.jeanboy.app.mvpdemo.base;
 
 import android.support.annotation.NonNull;
 
-import com.jeanboy.app.mvpdemo.common.utils.Page;
-
-import java.util.List;
-
 /**
  * Created by Next on 2016/7/5.
  */
@@ -21,6 +17,6 @@ public interface BaseLocal<T> {
 
     T get(@NonNull String id);
 
-    List<T> load(Page page);
+//    List<T> load(Page page);
 
 }

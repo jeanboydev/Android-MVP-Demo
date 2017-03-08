@@ -1,4 +1,4 @@
-package com.jeanboy.app.mvpdemo.common.crash;
+package com.jeanboy.app.mvpdemo.component.handler;
 
 import android.content.Context;
 import android.content.Intent;

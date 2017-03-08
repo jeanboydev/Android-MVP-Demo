@@ -139,7 +139,7 @@ public abstract class BaseFragment extends Fragment {
 
     public void isDefault() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            StatusBarUtil.setColor(getActivity(), getResources().getColor(R.color.colorPrimary));
+            StatusBarUtil.setColor(getActivity(), getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.jeanboy.app.mvpdemo.common.task;
+package com.jeanboy.app.mvpdemo.component.task;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

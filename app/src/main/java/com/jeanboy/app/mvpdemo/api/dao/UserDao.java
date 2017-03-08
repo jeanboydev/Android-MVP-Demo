@@ -1,7 +1,7 @@
 package com.jeanboy.app.mvpdemo.api.dao;
 
 
-import com.jeanboy.app.mvpdemo.api.ApiConfig;
+import com.jeanboy.app.mvpdemo.config.ApiConfig;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

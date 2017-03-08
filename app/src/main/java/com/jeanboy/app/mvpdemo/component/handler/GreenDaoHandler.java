@@ -15,7 +15,7 @@ import java.util.List;
  * Created by jeanboy on 2016/12/14.
  */
 
-public class GreeDaoHandler implements DBHandler {
+public class GreenDaoHandler implements DBHandler {
 
     private Context context;
     private DaoSession daoSession;

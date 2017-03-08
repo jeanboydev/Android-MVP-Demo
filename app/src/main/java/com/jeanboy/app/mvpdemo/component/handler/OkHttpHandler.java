@@ -3,6 +3,7 @@ package com.jeanboy.app.mvpdemo.component.handler;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.jeanboy.app.mvpdemo.config.AppConfig;
 import com.jeanboy.lib.common.BuildConfig;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.NetHandler;
@@ -34,7 +35,7 @@ public class OkHttpHandler implements NetHandler {
 
     @Override
     public String getBaseUrl() {
-        return null;
+        return AppConfig.SERVER_HOST;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.jeanboy.app.mvpdemo.api.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.jeanboy.lib.common.manager.net.NetManager;
-import com.jeanboy.app.mvpdemo.api.ApiConfig;
+import com.jeanboy.app.mvpdemo.config.ApiConfig;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.app.mvpdemo.api.dao.UserDao;
 

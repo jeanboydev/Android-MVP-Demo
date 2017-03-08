@@ -11,80 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <!--<include-->
-        <!--android:id="@+id/action_bar"-->
-        <!--layout="@layout/toolbar" />-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_below="@+id/action_bar"-->
-        <!--android:orientation="vertical"-->
-        <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
-        <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
-        <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
-        <!--android:paddingTop="@dimen/activity_vertical_margin">-->
-
-        <!--&lt;!&ndash;-->
-
-        <!--style="@style/Widget.AppCompat.Button"-->
-        <!--style="@style/Widget.AppCompat.Button.Colored"-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
-        <!--&ndash;&gt;-->
-
-        <!--<Button-->
-        <!--style="@style/Widget.AppCompat.Button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:onClick="toList"-->
-        <!--android:text="ListActivity" />-->
-
-        <!--<Button-->
-        <!--style="@style/Widget.AppCompat.Button.Colored"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:onClick="doWork"-->
-        <!--android:text="请求" />-->
-
-        <!--<Button-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:onClick="doWork"-->
-        <!--android:text="请求" />-->
-
-        <!--<Button-->
-        <!--style="@style/Widget.AppCompat.Button.Borderless.Colored"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:onClick="doWork"-->
-        <!--android:text="请求" />-->
-
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--android:gravity="center_horizontal">-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:onClick="doAnim"-->
-        <!--android:src="@drawable/bg"-->
-        <!--android:transitionName="robot" />-->
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="共享元素"-->
-        <!--android:textColor="@android:color/black"/>-->
-        <!--</LinearLayout>-->
-
-
-        <!--</LinearLayout>-->
-
         <RelativeLayout
             android:id="@+id/bottom_panel"
             android:layout_width="match_parent"
@@ -115,6 +41,13 @@
                     android:drawableTop="@drawable/ic_bookmark_white_24dp"
                     android:text="首页" />
 
+                <RadioButton
+                    style="@style/BottomMenu.Main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_favorite_white_24dp"
+                    android:text="最爱" />
 
                 <RadioButton
                     style="@style/BottomMenu.Main"
@@ -123,14 +56,6 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_music_note_white_24dp"
                     android:text="音乐" />
-
-                <RadioButton
-                    style="@style/BottomMenu.Main"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_favorite_white_24dp"
-                    android:text="最爱" />
 
                 <RadioButton
                     style="@style/BottomMenu.Main"
@@ -163,4 +88,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/drawer_nav_header_home"
         app:menu="@menu/fragment_home_drawer" />
+
 </android.support.v4.widget.DrawerLayout>
