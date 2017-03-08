@@ -8,6 +8,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- 控件默认颜色 -->
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 关闭ActionBar -->
+        <item name="windowActionBar">false</item>
+        <!-- 隐藏title -->
+        <item name="windowNoTitle">true</item>
+
         <!-- ActionBar标题文字文本颜色 -->
         <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
         <!-- ActionBar高度 -->
@@ -15,22 +21,26 @@
         <!-- 窗口背景颜色 -->
         <item name="android:windowBackground">@color/common_bg</item>
 
-    </style>
-
-    <style name="AppTheme" parent="BaseTheme">
-        <!-- 关闭ActionBar -->
-        <item name="windowActionBar">false</item>
-        <!-- 隐藏title -->
-        <item name="windowNoTitle">true</item>
         <!-- 隐藏键盘 -->
         <item name="android:configChanges">keyboardHidden</item>
         <item name="android:windowSoftInputMode">stateHidden</item>
+
+    </style>
+
+    <style name="AppTheme" parent="BaseTheme">
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!--状态栏半透明-->
+    <style name="AppTheme.Translucent" parent="AppTheme">
+    </style>
+
+    <!--全屏-->
     <style name="AppTheme.FullScreen" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowActionBarOverlay">false</item>
@@ -51,43 +61,108 @@
     </style>
 
 
-    <style name="AppTheme.Explode" parent="AppTheme.Fade"></style>
+    <!--Activity转场动画-->
+    <style name="AnimationExplode" parent="@style/AnimationFade" />
 
-    <style name="AppTheme.Fade" parent="@android:style/Animation.Activity">
+    <style name="AnimationFade">
         <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
         <item name="android:activityOpenExitAnimation">@android:anim/fade_out</item>
         <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
         <item name="android:activityCloseEnterAnimation">@android:anim/fade_in</item>
     </style>
 
-    <style name="AppTheme.SlideHorizontal" parent="AppTheme.Transition">
+    <style name="AnimationSlideHorizontal">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
     </style>
 
-    <style name="AppTheme.SlideBottom" parent="AppTheme.Transition">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_bottom</item>
+    <style name="AnimationSlideBottom">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_to_left</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_out_to_right</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_from_left</item>
     </style>
 
+    <style name="AppTheme.Explode" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationExplode</item>
+    </style>
 
-    <style name="DialogTheme.Loading" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
+    <style name="AppTheme.Fade" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationFade</item>
+    </style>
+
+    <style name="AppTheme.SlideHorizontal" parent="AppTheme">
+        <item name="android:windowAnimationStyle">@style/AnimationSlideHorizontal</item>
+    </style>
+
+    <style name="AppTheme.SlideBottom">
+        <item name="android:windowAnimationStyle">@style/AnimationSlideBottom</item>
+    </style>
+
+    <style name="AppTheme.Tips" parent="AppTheme.Fade">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <!-- 设置背景色 透明-->
-        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <!-- 设置是否显示背景 -->
-        <item name="android:backgroundDimEnabled">true</item>
-        <!-- 设置背景透明度 -->
-        <item name="android:backgroundDimAmount">0.6</item>
-        <!-- 设置点击空白不消失 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <style name="DialogTheme.Base" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 对话框去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 对话框去除框架样式 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 对话框浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 对话框是否底层可见 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 对话框的背景颜色 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 对话框进出动画 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!-- 对话框是否有遮盖 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 设置点击空白是否消失 -->
         <item name="android:windowCloseOnTouchOutside">false</item>
+
+        <!-- 设置对话框背景色 透明-->
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 设置黑色遮罩背景透明度 -->
+        <item name="android:backgroundDimAmount">0.6</item>
+        <!-- 设置是否显示黑色遮罩背景 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="DialogTheme.Loading" parent="DialogTheme.Base">
+
+    </style>
+
+    <style name="DialogTheme.Alert" parent="DialogTheme.Base">
+
+    </style>
+
+
+
+    <style name="TextTheme.Normal" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/text_16sp</item>
+        <item name="android:textColor">@color/common_text</item>
+    </style>
+
+    <style name="TextTheme.Desc" parent="android:Widget.TextView">
+        <item name="android:textSize">@dimen/text_14sp</item>
+        <item name="android:textColor">@color/common_text_desc</item>
+    </style>
+
+    <style name="BottomMenu.Main" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:button">@null</item>
     </style>
 
 </resources>

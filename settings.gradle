@@ -1,1 +1,1 @@
-include ':app', ':lib-cropview', ':lib-recyclerviewhelper', ':lib-bither-compress'
+include ':app', ':lib-common'

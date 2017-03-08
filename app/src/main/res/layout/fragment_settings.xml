@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jeanboy.app.ui.action.main.SettingsFragment">
+    tools:context=".mvpdemo.ui.action.main.SettingsFragment">
 
     <Button
         android:id="@+id/btn_from_gallery"

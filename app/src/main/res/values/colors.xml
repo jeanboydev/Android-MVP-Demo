@@ -14,6 +14,7 @@
     <color name="common_text_link">#4078c0</color>
     <color name="common_text_red">#ff3e3e</color>
     <color name="common_text_light">#a1a1a1</color>
+    <color name="common_text_desc">#999999</color>
 
     <color name="common_btn_bg_normal">#393a3f</color>
     <color name="common_btn_bg_press">#2e2e32</color>

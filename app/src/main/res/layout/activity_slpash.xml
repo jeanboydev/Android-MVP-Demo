@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jeanboy.app.ui.action.SplashActivity">
+    tools:context=".mvpdemo.ui.action.SplashActivity">
 
     <TextView
         android:layout_width="wrap_content"

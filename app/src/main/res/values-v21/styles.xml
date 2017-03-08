@@ -4,24 +4,25 @@
     <style name="AppTheme" parent="BaseTheme">
         <!-- 底部栏颜色 -->
         <item name="android:navigationBarColor">@color/colorPrimary</item>
-        <!-- 关闭ActionBar -->
-        <item name="windowActionBar">false</item>
-        <!-- 隐藏title -->
-        <item name="windowNoTitle">true</item>
-        <!-- 隐藏键盘 -->
-        <item name="android:configChanges">keyboardHidden</item>
-        <item name="android:windowSoftInputMode">stateHidden</item>
         <!-- 状态栏颜色 -->
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <!-- 是否在window里面绘制status bar -->
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- 状态栏是否半透明 -->
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
-
+        <item name="android:windowTranslucentStatus">false</item>
         <!-- 启用窗口的内容转换 -->
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <!--状态栏半透明-->
+    <style name="AppTheme.Translucent" parent="AppTheme.Transition">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">#80000000</item>
+    </style>
+
+    <!--Activity内容转换动画-->
     <style name="AppTheme.Transition" parent="AppTheme">
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
@@ -30,6 +31,7 @@
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
     </style>
 
+    <!--Activity转场动画-->
     <style name="AppTheme.Explode" parent="AppTheme.Transition">
         <!-- 指定进入和退出transitions -->
         <item name="android:windowEnterTransition">@android:transition/explode</item>
@@ -42,8 +44,8 @@
     </style>
 
     <style name="AppTheme.SlideHorizontal" parent="AppTheme.Transition">
-        <item name="android:windowEnterTransition">@android:transition/slide_right</item>
-        <item name="android:windowExitTransition">@android:transition/slide_left</item>
+        <item name="android:windowEnterTransition">@transition/slide_right</item>
+        <item name="android:windowExitTransition">@transition/slide_left</item>
     </style>
 
     <style name="AppTheme.SlideBottom" parent="AppTheme.Transition">

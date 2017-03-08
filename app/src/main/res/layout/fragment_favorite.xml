@@ -5,16 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.jeanboy.app.ui.action.main.HomeFragment">
+    tools:context=".ui.activity.MainActivity">
 
-    <include
-        android:id="@+id/action_bar"
-        layout="@layout/toolbar" />
+    <include layout="@layout/toolbar" />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_container"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"

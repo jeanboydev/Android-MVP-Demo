@@ -7,6 +7,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jeanboy.app.ui.action.settings.SettingsActivity">
+    tools:context=".mvpdemo.ui.action.settings.SettingsActivity">
 
 </RelativeLayout>
