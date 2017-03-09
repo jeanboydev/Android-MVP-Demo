@@ -1,7 +1,6 @@
 package com.jeanboy.lib.common.manager.database;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -89,7 +88,7 @@ public class DBManager {
         });
     }
 
-    public <T> void deleteAll(final Activity activity, final Class<T> clazz, final Callback<String> callback) {
+    public <T> void deleteAll(final Class<T> clazz, final Callback<String> callback) {
         DBTaskManager.getInstance().putData(new Runnable() {
             @Override
             public void run() {

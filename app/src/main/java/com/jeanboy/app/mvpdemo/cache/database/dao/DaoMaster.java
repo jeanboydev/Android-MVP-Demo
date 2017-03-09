@@ -1,4 +1,4 @@
-package com.jeanboy.app.mvpdemo.database.dao;
+package com.jeanboy.app.mvpdemo.cache.database.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,6 +1,7 @@
 package com.jeanboy.app.mvpdemo.api.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.jeanboy.app.mvpdemo.model.bean.UserBean;
 import com.jeanboy.lib.common.manager.net.NetManager;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
@@ -20,8 +21,8 @@ public class UserDaoImpl {
 
     private UserDao userDao = NetManager.getInstance().create(UserDao.class);
 
-    public Call<String> getInfo(String id, RequestCallback<String> callback) {
-        Call<String> call = userDao.getInfo(id);
+    public Call<UserBean> getInfo(String id, RequestCallback<UserBean> callback) {
+        Call<UserBean> call = userDao.getInfo(id);
         NetManager.getInstance().doBack(call, callback);
         return call;
     }

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.jeanboy.app.mvpdemo.R;
+import com.jeanboy.app.mvpdemo.architecture.View;
 import com.jeanboy.app.mvpdemo.ui.adapter.ListAdapter;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity implements View{
 
     @BindView(R.id.list_container)
     RecyclerView list_container;
@@ -41,6 +42,11 @@ public class Main2Activity extends AppCompatActivity {
             dataList.add(String.valueOf(i));
         }
         listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void display(int action, Object o) {
+
     }
 
     public static class SettingsActivity extends AppCompatActivity {

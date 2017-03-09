@@ -3,8 +3,8 @@ package com.jeanboy.app.mvpdemo.component.handler;
 import android.content.Context;
 
 import com.jeanboy.app.mvpdemo.config.AppConfig;
-import com.jeanboy.app.mvpdemo.database.dao.DaoMaster;
-import com.jeanboy.app.mvpdemo.database.dao.DaoSession;
+import com.jeanboy.app.mvpdemo.cache.database.dao.DaoMaster;
+import com.jeanboy.app.mvpdemo.cache.database.dao.DaoSession;
 import com.jeanboy.lib.common.manager.database.DBHandler;
 
 import org.greenrobot.greendao.query.QueryBuilder;

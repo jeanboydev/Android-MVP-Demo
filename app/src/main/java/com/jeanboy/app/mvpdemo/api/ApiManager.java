@@ -8,7 +8,7 @@ import com.jeanboy.app.mvpdemo.api.impl.UserDaoImpl;
 
 public class ApiManager {
 
-    private UserDaoImpl UserDaoImpl = new UserDaoImpl();
+    public UserDaoImpl userDao = new UserDaoImpl();
 
     private static class SingletonHolder {
         public static ApiManager instance = new ApiManager();

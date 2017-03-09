@@ -35,7 +35,7 @@ android {
 
     greendao {
         schemaVersion 1
-        daoPackage "com.jeanboy.app.mvpdemo.database.dao"
+        daoPackage "com.jeanboy.app.mvpdemo.cache.database.dao"
         targetGenDir "src/main/java"
     }
 }
