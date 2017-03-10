@@ -32,7 +32,7 @@ public class UserRepository implements UserDataSource {
         this.userRemoteDataSource = checkNotNull(userRemoteDataSource);
     }
 
-    public UserRepository getInstance(UserDataSource userLocalDataSource,
+    public static UserRepository getInstance(UserDataSource userLocalDataSource,
                                       UserDataSource userRemoteDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new UserRepository(userLocalDataSource, userRemoteDataSource);
