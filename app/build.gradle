@@ -53,29 +53,36 @@ dependencies {
 
     // Google 的基于java1.6的类库集合的扩展项目
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+
     //DataBase
     compile "org.greenrobot:greendao:$rootProject.greendaoVersion"
+
     //butterknife
     compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
+
     //eventbus
     compile "org.greenrobot:eventbus:$rootProject.eventbusVersion"
+
     //fastjson
     compile "com.alibaba:fastjson:$rootProject.fastjsonVersion"
+
     //network
     compile "com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion"
     compile "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
     //images-glide
     compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
     //permissions dispatcher
     compile "com.github.hotchemi:permissionsdispatcher:$rootProject.permissionVersion"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:$rootProject.permissionVersion"
+
     //filedownloader
-    compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
-    //Bottom navigation
+//    compile "com.liulishuo.filedownloader:library:$rootProject.filedownloaderVersion"
+
     compile project(':lib-common')
-    compile 'com.roughike:bottom-bar:1.4.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
 }

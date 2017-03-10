@@ -1,8 +1,8 @@
 package com.jeanboy.app.mvpdemo.api.dao;
 
 
+import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
-import com.jeanboy.app.mvpdemo.model.bean.UserBean;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -70,7 +70,7 @@ public interface UserDao {
 
 
     @GET(ApiConfig.PATH_USERS + "/{id}")
-    Call<UserBean> getInfo(@Path("id") String id);
+    Call<UserModel> getInfo(@Path("id") String id);
 
     @POST(ApiConfig.PATH_TOKENS)
     Call<String> logIn(@Query("client") String client, @Body RequestBody params);
