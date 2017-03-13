@@ -39,11 +39,13 @@ public class UserPresenter implements UserContract.Presenter {
             @Override
             public void onSuccess(UserGetTask.ResponseValue response) {
                 userView.setLoadingIndicator(false);
+                userView.showUser(response.getUserModel());
             }
 
             @Override
             public void onError() {
                 userView.setLoadingIndicator(false);
+                userView.showGetUserError();
             }
         });
         userGetTask.run();

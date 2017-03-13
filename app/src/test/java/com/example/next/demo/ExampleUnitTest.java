@@ -1,7 +1,5 @@
 package com.example.next.demo;
 
-import com.jeanboy.app.mvpdemo.model.bean.UserBean;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -18,10 +16,6 @@ public class ExampleUnitTest {
     @Test
     public void dbFlow() {
 
-        UserBean userBean = new UserBean();
-        userBean.setUsername("testuser");
-        userBean.setPassword("testpass");
-        userBean.setNickname("testnick");
 
 //        userBean.save();
     }

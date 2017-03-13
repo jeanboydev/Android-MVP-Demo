@@ -1,27 +1,30 @@
 package com.jeanboy.app.mvpdemo.cache.source;
 
-import android.support.annotation.NonNull;
-
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
-import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
+import com.jeanboy.app.mvpdemo.cache.source.base.BaseLocalDataSource;
+import com.jeanboy.lib.common.manager.net.RequestCallback;
 
-import java.util.List;
+import java.io.File;
+
+import retrofit2.Call;
 
 /**
  * Created by jeanboy on 2017/3/9.
  */
 
-public interface UserDataSource {
+public class UserDataSource {
 
-    void getUsers(@NonNull SourceCallback<List<UserModel>> callback);
 
-    void getUser(@NonNull Long userId, @NonNull SourceCallback<UserModel> callback);
+    public interface Local extends BaseLocalDataSource<UserModel> {
 
-    void saveUser(@NonNull UserModel userModel);
+    }
 
-    void refreshUsers();
+    public interface Remote {
 
-    void deleteAllUser();
+        Call<UserModel> getInfo(String token, String id, RequestCallback<UserModel> callback);
 
-    void deleteUser(@NonNull UserModel userModel);
+        Call<UserModel> updateInfo(String token, String id, UserModel user, RequestCallback<UserModel> callback);
+
+        Call<String> uploadAvatar(String token, String id, File file, RequestCallback<String> callback);
+    }
 }

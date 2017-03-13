@@ -1,5 +1,6 @@
 package com.jeanboy.app.mvpdemo.api;
 
+import com.jeanboy.app.mvpdemo.api.impl.TokenDaoImpl;
 import com.jeanboy.app.mvpdemo.api.impl.UserDaoImpl;
 
 /**
@@ -9,6 +10,7 @@ import com.jeanboy.app.mvpdemo.api.impl.UserDaoImpl;
 public class ApiManager {
 
     public UserDaoImpl userDao = new UserDaoImpl();
+    public TokenDaoImpl tokenDao = new TokenDaoImpl();
 
     private static class SingletonHolder {
         public static ApiManager instance = new ApiManager();

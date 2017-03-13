@@ -1,19 +1,21 @@
 package com.jeanboy.app.mvpdemo.cache.source.remote;
 
-import android.support.annotation.NonNull;
-
+import com.jeanboy.app.mvpdemo.api.impl.UserDaoImpl;
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.cache.source.UserDataSource;
-import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
+import com.jeanboy.lib.common.manager.net.RequestCallback;
 
-import java.util.List;
+import java.io.File;
+
+import retrofit2.Call;
 
 /**
  * Created by jeanboy on 2017/3/9.
  */
 
-public class UserRemoteDataSource implements UserDataSource {
+public class UserRemoteDataSource implements UserDataSource.Remote {
 
+    private UserDaoImpl userDao = new UserDaoImpl();
 
     private static UserRemoteDataSource INSTANCE;
 
@@ -24,33 +26,19 @@ public class UserRemoteDataSource implements UserDataSource {
         return INSTANCE;
     }
 
+
     @Override
-    public void getUsers(@NonNull SourceCallback<List<UserModel>> callback) {
-//        ApiManager.getInstance().userDao.getInfo()
+    public Call<UserModel> getInfo(String token, String id, RequestCallback<UserModel> callback) {
+        return userDao.getInfo(token, id, callback);
     }
 
     @Override
-    public void getUser(@NonNull Long userId, @NonNull SourceCallback<UserModel> callback) {
-//        ApiManager.getInstance().userDao.getInfo()
+    public Call<UserModel> updateInfo(String token, String id, UserModel user, RequestCallback<UserModel> callback) {
+        return userDao.updateInfo(token, id, user, callback);
     }
 
     @Override
-    public void saveUser(@NonNull UserModel userModel) {
-
-    }
-
-    @Override
-    public void refreshUsers() {
-
-    }
-
-    @Override
-    public void deleteAllUser() {
-
-    }
-
-    @Override
-    public void deleteUser(@NonNull UserModel userModel) {
-
+    public Call<String> uploadAvatar(String token, String id, File file, RequestCallback<String> callback) {
+        return userDao.uploadAvatar(token, id, file, callback);
     }
 }

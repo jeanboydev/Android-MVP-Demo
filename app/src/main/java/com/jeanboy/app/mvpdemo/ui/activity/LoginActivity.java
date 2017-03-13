@@ -5,8 +5,8 @@ import android.widget.EditText;
 
 import com.jeanboy.app.mvpdemo.R;
 import com.jeanboy.app.mvpdemo.base.BaseActivity;
-import com.jeanboy.app.mvpdemo.tasks.contract.UserContract;
-import com.jeanboy.lib.common.utils.ToastUtil;
+import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
+import com.jeanboy.app.mvpdemo.tasks.UserContract;
 
 import butterknife.BindView;
 
@@ -44,18 +44,22 @@ public class LoginActivity extends BaseActivity implements UserContract.View {
     }
 
     @Override
-    public void showDialog(String msg) {
-
-    }
-
-
-    @Override
-    public void toast(String msg) {
-        ToastUtil.toast(this, msg);
-    }
-
-    @Override
     public void setLoadingIndicator(boolean active) {
+
+    }
+
+    @Override
+    public void showGetUserError() {
+
+    }
+
+    @Override
+    public void showUser(UserModel userModel) {
+
+    }
+
+    @Override
+    public void setPresenter(UserContract.Presenter presenter) {
 
     }
 

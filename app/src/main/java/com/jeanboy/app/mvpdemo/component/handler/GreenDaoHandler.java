@@ -72,7 +72,6 @@ public class GreenDaoHandler implements DBHandler {
         return getDaoSession(context).queryRaw(clazz, where, params);
     }
 
-
     public <T> QueryBuilder<T> queryBuilder(Class<T> clazz) {
         return getDaoSession(context).queryBuilder(clazz);
     }

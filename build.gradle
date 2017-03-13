@@ -35,7 +35,7 @@ ext {
 
     // App dependencies
     junitVersion = '4.12'
-    supportLibraryVersion = '24.2.1'
+    supportLibraryVersion = '25.1.1'
 
     guavaVersion = '18.0'
     greendaoVersion = '3.2.0'

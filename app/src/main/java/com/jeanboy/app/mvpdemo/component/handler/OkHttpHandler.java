@@ -7,6 +7,7 @@ import com.jeanboy.app.mvpdemo.config.AppConfig;
 import com.jeanboy.lib.common.BuildConfig;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.NetHandler;
+import com.jeanboy.lib.common.manager.net.StatusCode;
 import com.jeanboy.lib.common.manager.net.converters.FastJsonConverterFactory;
 
 import java.io.IOException;
@@ -55,19 +56,19 @@ public class OkHttpHandler implements NetHandler {
                     try {
                         msg = response.errorBody().string();// TODO:处理自定义错误信息
                     } catch (IOException e) {
-                        callback.error(e.getMessage());
+                        callback.error(response.code(), e.getMessage());
                     }
                     if (TextUtils.isEmpty(msg)) {
                         msg = response.message();
                     }
-                    callback.error(msg);
+                    callback.error(response.code(), msg);
                 }
 
             }
 
             @Override
             public void onFailure(Call<T> call, Throwable t) {
-                callback.error(t.getMessage());
+                callback.error(StatusCode.CODE_UNKNOWN_EXCEPTION, t.getMessage());
             }
         });
     }
@@ -83,16 +84,16 @@ public class OkHttpHandler implements NetHandler {
                 try {
                     msg = response.errorBody().string();// TODO:处理自定义错误信息
                 } catch (IOException e) {
-                    callback.error(e.getMessage());
+                    callback.error(response.code(), e.getMessage());
                 }
                 if (TextUtils.isEmpty(msg)) {
                     msg = response.message();
                 }
-                callback.error(msg);
+                callback.error(response.code(), msg);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            callback.error(e.getMessage());
+            callback.error(StatusCode.CODE_UNKNOWN_EXCEPTION, e.getMessage());
         }
     }
 

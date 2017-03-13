@@ -32,7 +32,7 @@ public class DBManager {
 
     public void build(@NonNull Context context, @NonNull DBHandler dbHandler) {
         this.context = context.getApplicationContext();
-        this.dbHandler = dbHandler;
+        this.dbHandler = (dbHandler);
         this.dbHandler.init(this.context);
     }
 
@@ -51,7 +51,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish(id);
+                        if (callback != null) {
+                            callback.onFinish(id);
+                        }
                     }
                 });
             }
@@ -66,7 +68,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish("update finish!");
+                        if (callback != null) {
+                            callback.onFinish("update finish!");
+                        }
                     }
                 });
             }
@@ -81,7 +85,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish("delete finish!");
+                        if (callback != null) {
+                            callback.onFinish("delete finish!");
+                        }
                     }
                 });
             }
@@ -96,7 +102,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish("delete all finish!");
+                        if (callback != null) {
+                            callback.onFinish("delete all finish!");
+                        }
                     }
                 });
             }
@@ -111,7 +119,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish(t);
+                        if (callback != null) {
+                            callback.onFinish(t);
+                        }
                     }
                 });
             }
@@ -126,7 +136,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish(ts);
+                        if (callback != null) {
+                            callback.onFinish(ts);
+                        }
                     }
                 });
             }
@@ -148,7 +160,9 @@ public class DBManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        callback.onFinish(ts);
+                        if (callback != null) {
+                            callback.onFinish(ts);
+                        }
                     }
                 });
             }

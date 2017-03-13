@@ -9,5 +9,5 @@ public interface RequestCallback<T> {
 
     void success(Response<T> response);
 
-    void error(String msg);
+    void error(int code, String msg);
 }

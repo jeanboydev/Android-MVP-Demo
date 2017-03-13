@@ -1,24 +1,20 @@
 package com.jeanboy.app.mvpdemo.component.task;
 
-import com.jeanboy.app.mvpdemo.model.bean.FileBean;
-
-import retrofit2.Call;
-
 /**
  * Created by Next on 2016/8/16.
  */
 public class UploadTask extends Task {
 
-    private FileBean fileBean;
-
-    private Call<FileBean> call;
-
-
-
-    public UploadTask(FileBean fileBean) {
-        super();
-        this.fileBean = fileBean;
-    }
+//    private FileBean fileBean;
+//
+//    private Call<FileBean> call;
+//
+//
+//
+//    public UploadTask(FileBean fileBean) {
+//        super();
+//        this.fileBean = fileBean;
+//    }
 
     @Override
     public void onAdded() {
@@ -52,8 +48,8 @@ public class UploadTask extends Task {
 
     @Override
     public void onCancel() {
-        if (call != null) {//正在执行时取消
-            call.cancel();
-        }
+//        if (call != null) {//正在执行时取消
+//            call.cancel();
+//        }
     }
 }

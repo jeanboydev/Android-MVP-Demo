@@ -4,13 +4,16 @@ package com.jeanboy.app.mvpdemo.api.dao;
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
 
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -60,22 +63,59 @@ public interface UserDao {
 
 
     /**
-     * @Body 适用范围：POST/PUT   作用：
-     * @Field/@FieldMap 适用范围：POST需要FormUrlEncoded 作用：POST参数
-     * @Header/@Headers/@HeaderMap 适用范围：GET    作用：头参数
-     * @Multipart 适用范围：POST 搭配Part/PartMap 作用：可以方便批量上传
-     * @Path 适用范围：*   作用：url参数替换
-     * @Query/@QueryMap 适用范围：*  作用：url后面添加参数
+     * @Body 适用范围：POST/PUT               作用：
+     * @Field/@FieldMap 适用范围：POST需要FormUrlEncoded  作用：POST参数
+     * @Header/@Headers/@HeaderMap 适用范围：GET                    作用：头参数
+     * @Multipart 适用范围：POST 搭配Part/PartMap   作用：可以方便批量上传
+     * @Path 适用范围：*                      作用：url参数替换
+     * @Query/@QueryMap 适用范围：*                      作用：url后面添加参数
      */
 
 
+    /**
+     * http://www.xxx.com/xxx
+     * header:
+     * Authorization:xxx
+     *
+     * @param token
+     * @param id
+     * @return
+     */
     @GET(ApiConfig.PATH_USERS + "/{id}")
-    Call<UserModel> getInfo(@Path("id") String id);
+    Call<UserModel> getInfo(@Header("Authorization") String token, @Path("id") String id);
 
-    @POST(ApiConfig.PATH_TOKENS)
-    Call<String> logIn(@Query("client") String client, @Body RequestBody params);
 
-    @FormUrlEncoded
+    /**
+     * http://www.xxx.com/xxx?client=android
+     * header:
+     * Authorization:xxx
+     * body:
+     * user
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @PUT(ApiConfig.PATH_USERS + "/{id}")
+    Call<UserModel> updateInfo(@Header("Authorization") String token, @Path("id") String id,
+                               @Query("client") String client, @Body UserModel user);
+
+
+    /**
+     ** http://www.xxx.com/xxx
+     * header:
+     * Authorization:xxx
+     * body:
+     * file
+     *
+     * @param token
+     * @param id
+     * @param description
+     * @param file
+     * @return
+     */
+    @Multipart
     @POST(ApiConfig.PATH_USERS)
-    Call<String> logOut(@Field("username") String username, @Field("password") String password);
+    Call<String> uploadAvatar(@Header("Authorization") String token, @Path("id") String id,
+                              @Part("description") RequestBody description, @Part MultipartBody.Part file);
 }
