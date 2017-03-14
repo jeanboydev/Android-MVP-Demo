@@ -15,7 +15,7 @@ public class TokenDataSource {
 
     public interface Local extends BaseLocalDataSource<TokenModel> {
 
-        void getToken(String username, SourceCallback<TokenModel> callback);
+        void getToken(Long userId, SourceCallback<TokenModel> callback);
     }
 
     public interface Remote {

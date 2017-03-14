@@ -60,12 +60,23 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
         mCacheIsDirty = true;
     }
 
+    /**
+     * 保存到数据库
+     *
+     * @param userModel
+     */
     @Override
     public void save(@NonNull UserModel userModel) {
         checkNotNull(userModel);
         userLocalDataSource.save(userModel);
     }
 
+    /**
+     * 获取本地缓存
+     *
+     * @param id
+     * @param callback
+     */
     @Override
     public void get(@NonNull final Long id, @NonNull final SourceCallback<UserModel> callback) {
         checkNotNull(id);
@@ -78,50 +89,89 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
             return;
         }
 
-        if (mCacheIsDirty) {//本地失效，从服务器获取
-            getUserFromRemote(id, callback);
-        } else {//本地未失效，从数据库读取
-            userLocalDataSource.get(id, new SourceCallback<UserModel>() {
-                @Override
-                public void onLoaded(UserModel userModel) {
-                    refreshCache(userModel);
-                    callback.onLoaded(userModel);
-                }
+        userLocalDataSource.get(id, new SourceCallback<UserModel>() {
+            @Override
+            public void onLoaded(UserModel userModel) {
+                refreshMemoryCache(userModel);
+                callback.onLoaded(userModel);
+            }
 
-                @Override
-                public void onDataNotAvailable() {//数据库没有数据，从服务器获取
-                    getUserFromRemote(id, callback);
-                }
-            });
-        }
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
+    /**
+     * 获取数据库中所有缓存
+     *
+     * @param callback
+     */
     @Override
     public void getAll(@NonNull SourceCallback<List<UserModel>> callback) {
         checkNotNull(callback);
         userLocalDataSource.getAll(callback);
     }
 
+    /**
+     * 删除数据库中的缓存
+     *
+     * @param userModel
+     */
     @Override
     public void delete(@NonNull UserModel userModel) {
         checkNotNull(userModel);
         userLocalDataSource.delete(userModel);
     }
 
+    /**
+     * 删除数据库缓存的所有user
+     */
     @Override
     public void deleteAll() {
         userLocalDataSource.deleteAll();
     }
 
+    /**
+     * 从服务器获取user info
+     *
+     * @param token
+     * @param id
+     * @param callback
+     * @return
+     */
     @Override
     public Call<UserModel> getInfo(@NonNull String token, @NonNull String id,
-                                   @NonNull RequestCallback<UserModel> callback) {
+                                   @NonNull final RequestCallback<UserModel> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(callback);
-        return userRemoteDataSource.getInfo(token, id, callback);
+        return userRemoteDataSource.getInfo(token, id, new RequestCallback<UserModel>() {
+            @Override
+            public void success(Response<UserModel> response) {
+                UserModel userModel = response.body();
+                refreshMemoryCache(userModel);
+                refreshLocalDataSource(userModel);
+                callback.success(response);
+            }
+
+            @Override
+            public void error(int code, String msg) {
+                callback.error(code, msg);
+            }
+        });
     }
 
+    /**
+     * 更新user info
+     *
+     * @param token
+     * @param id
+     * @param user
+     * @param callback
+     * @return
+     */
     @Override
     public Call<UserModel> updateInfo(@NonNull String token, @NonNull String id, UserModel user,
                                       @NonNull RequestCallback<UserModel> callback) {
@@ -132,6 +182,15 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
         return userRemoteDataSource.updateInfo(token, id, user, callback);
     }
 
+    /**
+     * 上传user 头像
+     *
+     * @param token
+     * @param id
+     * @param file
+     * @param callback
+     * @return
+     */
     @Override
     public Call<String> uploadAvatar(@NonNull String token, @NonNull String id, @NonNull File file,
                                      @NonNull RequestCallback<String> callback) {
@@ -142,28 +201,7 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
         return userRemoteDataSource.uploadAvatar(token, id, file, callback);
     }
 
-
-    private void getUserFromRemote(Long id, @NonNull final SourceCallback<UserModel> callback) {
-        checkNotNull(callback);
-
-        String token = "";// TODO: 2017/3/13 获取token
-        getInfo(token, String.valueOf(id), new RequestCallback<UserModel>() {
-            @Override
-            public void success(Response<UserModel> response) {
-                UserModel userModel = response.body();
-                refreshCache(userModel);
-                refreshLocalDataSource(userModel);
-                callback.onLoaded(userModel);
-            }
-
-            @Override
-            public void error(int code, String msg) {
-                callback.onDataNotAvailable();
-            }
-        });
-    }
-
-    private void refreshCache(UserModel userModel) {
+    private void refreshMemoryCache(UserModel userModel) {
         if (mCacheMap == null) {
             mCacheMap = new LinkedHashMap<>();
         }

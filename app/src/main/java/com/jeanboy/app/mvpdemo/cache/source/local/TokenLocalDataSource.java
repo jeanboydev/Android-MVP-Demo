@@ -70,9 +70,9 @@ public class TokenLocalDataSource implements TokenDataSource.Local {
     }
 
     @Override
-    public void getToken(String username, final SourceCallback<TokenModel> callback) {
-        String where = "where username == ?";
-        DBManager.getInstance().query(TokenModel.class, where, new String[]{username}, new DBManager.Callback<List<TokenModel>>() {
+    public void getToken(Long userId, final SourceCallback<TokenModel> callback) {
+        String where = "where userId == ?";
+        DBManager.getInstance().query(TokenModel.class, where, new String[]{String.valueOf(userId)}, new DBManager.Callback<List<TokenModel>>() {
             @Override
             public void onFinish(List<TokenModel> tokenModels) {
                 if (callback != null) {

@@ -119,14 +119,14 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
     }
 
     /**
-     * 根据username获取数据库中缓存的token
+     * 根据userId获取数据库中缓存的token
      *
-     * @param username
+     * @param userId
      * @param callback
      */
     @Override
-    public void getToken(String username, SourceCallback<TokenModel> callback) {
-        tokenLocalDataSource.getToken(username, callback);
+    public void getToken(Long userId, SourceCallback<TokenModel> callback) {
+        tokenLocalDataSource.getToken(userId, callback);
     }
 
     /**
@@ -146,6 +146,13 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
         return tokenRemoteDataSource.getToken(username, password, callback);
     }
 
+    /**
+     * 使用refresh_token从服务器重新获取access_token
+     *
+     * @param refreshToken
+     * @param callback
+     * @return
+     */
     @Override
     public Call<TokenModel> refreshToken(@NonNull String refreshToken, @NonNull RequestCallback<TokenModel> callback) {
         checkNotNull(refreshToken);
@@ -156,26 +163,26 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
     /**
      * 获取token，失效尝试自动刷新
      *
-     * @param username
+     * @param userId
      * @param callback
      */
-    public void getTokenAutoRefresh(@NonNull final String username, @NonNull final SourceCallback<TokenModel> callback) {
+    public void getTokenAutoRefresh(@NonNull Long userId, @NonNull final SourceCallback<TokenModel> callback) {
 
-        checkNotNull(username);
+        checkNotNull(userId);
         checkNotNull(callback);
 
-        TokenModel memoryCache = getFromMemory(username);
+        TokenModel memoryCache = getFromMemory(userId);
         if (memoryCache != null && !mCacheIsDirty) {//获取内存中缓存
             if (checkAccessTokenIfInvalid(memoryCache)) {//access_token已失效，尝试刷新
-                refreshToken(memoryCache.getRefreshToken(), callback);
+                refreshAccessToken(memoryCache.getRefreshToken(), callback);
             } else {
                 callback.onLoaded(memoryCache);
             }
             return;
         }
 
-
-        getToken(username, new SourceCallback<TokenModel>() {
+        //读取数据库缓存
+        getToken(userId, new SourceCallback<TokenModel>() {
             @Override
             public void onLoaded(TokenModel tokenModel) {
                 if (tokenModel == null) {//数据库中不存在
@@ -185,9 +192,9 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
 
                 if (mCacheIsDirty || checkAccessTokenIfInvalid(tokenModel)) {//已标记本地数据过时，或者失效，尝试刷新
                     retryErrorCount = 0;
-                    refreshToken(tokenModel.getRefreshToken(), callback);
+                    refreshAccessToken(tokenModel.getRefreshToken(), callback);
                 } else {
-                    refreshCache(tokenModel);
+                    refreshMemoryCache(tokenModel);
                     callback.onLoaded(tokenModel);
                 }
             }
@@ -208,17 +215,18 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @param callback
      * @return
      */
-    private Call<TokenModel> refreshToken(@NonNull final String refreshToken,
-                                          @NonNull final SourceCallback<TokenModel> callback) {
+    private Call<TokenModel> refreshAccessToken(@NonNull final String refreshToken,
+                                                @NonNull final SourceCallback<TokenModel> callback) {
         checkNotNull(refreshToken);
         checkNotNull(callback);
 
+        //使用refresh_token获取access_token
         return refreshToken(refreshToken, new RequestCallback<TokenModel>() {
             @Override
             public void success(Response<TokenModel> response) {
                 TokenModel tokenModel = response.body();
                 retryErrorCount = 0;
-                refreshCache(tokenModel);//刷新内存中缓存
+                refreshMemoryCache(tokenModel);//刷新内存中缓存
                 refreshLocalDataSource(tokenModel);//刷新数据库缓存
                 callback.onLoaded(tokenModel);
             }
@@ -232,7 +240,7 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
                 }
 
                 if (++retryErrorCount <= RETRY_TIMES) {//刷新access_token，重试三次
-                    refreshToken(refreshToken, callback);
+                    refreshAccessToken(refreshToken, callback);
                 } else {
                     retryErrorCount = 0;
                     callback.onDataNotAvailable();
@@ -246,12 +254,12 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      *
      * @param tokenModel
      */
-    private void refreshCache(TokenModel tokenModel) {
+    private void refreshMemoryCache(TokenModel tokenModel) {
         if (mCacheMap == null) {
             mCacheMap = new LinkedHashMap<>();
         }
         mCacheMap.clear();
-        mCacheMap.put(tokenModel.getUsername(), tokenModel);
+        mCacheMap.put(String.valueOf(tokenModel.getUserId()), tokenModel);
         mCacheIsDirty = false;
     }
 
@@ -263,14 +271,14 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
     /**
      * 获取内存中缓存
      *
-     * @param key
+     * @param userId
      * @return
      */
-    private TokenModel getFromMemory(String key) {
+    private TokenModel getFromMemory(Long userId) {
         if (mCacheMap == null) {
             mCacheMap = new LinkedHashMap<>();
         }
-        return mCacheMap.get(key);
+        return mCacheMap.get(String.valueOf(userId));
     }
 
 

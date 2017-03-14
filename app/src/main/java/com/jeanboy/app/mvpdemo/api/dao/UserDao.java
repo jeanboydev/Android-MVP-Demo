@@ -63,12 +63,12 @@ public interface UserDao {
 
 
     /**
-     * @Body 适用范围：POST/PUT               作用：
-     * @Field/@FieldMap 适用范围：POST需要FormUrlEncoded  作用：POST参数
-     * @Header/@Headers/@HeaderMap 适用范围：GET                    作用：头参数
-     * @Multipart 适用范围：POST 搭配Part/PartMap   作用：可以方便批量上传
-     * @Path 适用范围：*                      作用：url参数替换
-     * @Query/@QueryMap 适用范围：*                      作用：url后面添加参数
+     * @Body                        适用范围：POST/PUT               作用：
+     * @Field/@FieldMap             适用范围：POST需要FormUrlEncoded  作用：POST参数
+     * @Header/@Headers/@HeaderMap  适用范围：GET                    作用：头参数
+     * @Multipart                   适用范围：POST 搭配Part/PartMap   作用：可以方便批量上传
+     * @Path                        适用范围：*                      作用：url参数替换
+     * @Query/@QueryMap             适用范围：*                      作用：url后面添加参数
      */
 
 

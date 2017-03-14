@@ -15,7 +15,7 @@ import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 /** 
  * DAO for table "TOKEN_MODEL".
 */
-public class TokenModelDao extends AbstractDao<TokenModel, Void> {
+public class TokenModelDao extends AbstractDao<TokenModel, Long> {
 
     public static final String TABLENAME = "TOKEN_MODEL";
 
@@ -24,10 +24,12 @@ public class TokenModelDao extends AbstractDao<TokenModel, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property UserId = new Property(0, Long.class, "userId", false, "USER_ID");
-        public final static Property ExpiresIn = new Property(1, Integer.class, "expiresIn", false, "EXPIRES_IN");
-        public final static Property RefreshToken = new Property(2, String.class, "refreshToken", false, "REFRESH_TOKEN");
-        public final static Property AccessToken = new Property(3, String.class, "accessToken", false, "ACCESS_TOKEN");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property UserId = new Property(1, Long.class, "userId", false, "USER_ID");
+        public final static Property ExpiresIn = new Property(2, Long.class, "expiresIn", false, "EXPIRES_IN");
+        public final static Property RefreshToken = new Property(3, String.class, "refreshToken", false, "REFRESH_TOKEN");
+        public final static Property AccessToken = new Property(4, String.class, "accessToken", false, "ACCESS_TOKEN");
+        public final static Property CreateTime = new Property(5, Long.class, "createTime", false, "CREATE_TIME");
     }
 
 
@@ -43,10 +45,12 @@ public class TokenModelDao extends AbstractDao<TokenModel, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"TOKEN_MODEL\" (" + //
-                "\"USER_ID\" INTEGER," + // 0: userId
-                "\"EXPIRES_IN\" INTEGER," + // 1: expiresIn
-                "\"REFRESH_TOKEN\" TEXT," + // 2: refreshToken
-                "\"ACCESS_TOKEN\" TEXT);"); // 3: accessToken
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"USER_ID\" INTEGER," + // 1: userId
+                "\"EXPIRES_IN\" INTEGER," + // 2: expiresIn
+                "\"REFRESH_TOKEN\" TEXT," + // 3: refreshToken
+                "\"ACCESS_TOKEN\" TEXT," + // 4: accessToken
+                "\"CREATE_TIME\" INTEGER);"); // 5: createTime
     }
 
     /** Drops the underlying database table. */
@@ -59,24 +63,34 @@ public class TokenModelDao extends AbstractDao<TokenModel, Void> {
     protected final void bindValues(DatabaseStatement stmt, TokenModel entity) {
         stmt.clearBindings();
  
-        Long userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(1, userId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
-        Integer expiresIn = entity.getExpiresIn();
+        Long userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindLong(2, userId);
+        }
+ 
+        Long expiresIn = entity.getExpiresIn();
         if (expiresIn != null) {
-            stmt.bindLong(2, expiresIn);
+            stmt.bindLong(3, expiresIn);
         }
  
         String refreshToken = entity.getRefreshToken();
         if (refreshToken != null) {
-            stmt.bindString(3, refreshToken);
+            stmt.bindString(4, refreshToken);
         }
  
         String accessToken = entity.getAccessToken();
         if (accessToken != null) {
-            stmt.bindString(4, accessToken);
+            stmt.bindString(5, accessToken);
+        }
+ 
+        Long createTime = entity.getCreateTime();
+        if (createTime != null) {
+            stmt.bindLong(6, createTime);
         }
     }
 
@@ -84,66 +98,83 @@ public class TokenModelDao extends AbstractDao<TokenModel, Void> {
     protected final void bindValues(SQLiteStatement stmt, TokenModel entity) {
         stmt.clearBindings();
  
-        Long userId = entity.getUserId();
-        if (userId != null) {
-            stmt.bindLong(1, userId);
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
         }
  
-        Integer expiresIn = entity.getExpiresIn();
+        Long userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindLong(2, userId);
+        }
+ 
+        Long expiresIn = entity.getExpiresIn();
         if (expiresIn != null) {
-            stmt.bindLong(2, expiresIn);
+            stmt.bindLong(3, expiresIn);
         }
  
         String refreshToken = entity.getRefreshToken();
         if (refreshToken != null) {
-            stmt.bindString(3, refreshToken);
+            stmt.bindString(4, refreshToken);
         }
  
         String accessToken = entity.getAccessToken();
         if (accessToken != null) {
-            stmt.bindString(4, accessToken);
+            stmt.bindString(5, accessToken);
+        }
+ 
+        Long createTime = entity.getCreateTime();
+        if (createTime != null) {
+            stmt.bindLong(6, createTime);
         }
     }
 
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public TokenModel readEntity(Cursor cursor, int offset) {
         TokenModel entity = new TokenModel( //
-            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // userId
-            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // expiresIn
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // refreshToken
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // accessToken
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // userId
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // expiresIn
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // refreshToken
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // accessToken
+            cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5) // createTime
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, TokenModel entity, int offset) {
-        entity.setUserId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setExpiresIn(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
-        entity.setRefreshToken(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setAccessToken(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
+        entity.setExpiresIn(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setRefreshToken(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setAccessToken(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setCreateTime(cursor.isNull(offset + 5) ? null : cursor.getLong(offset + 5));
      }
     
     @Override
-    protected final Void updateKeyAfterInsert(TokenModel entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected final Long updateKeyAfterInsert(TokenModel entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     @Override
-    public Void getKey(TokenModel entity) {
-        return null;
+    public Long getKey(TokenModel entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public boolean hasKey(TokenModel entity) {
-        // TODO
-        return false;
+        return entity.getId() != null;
     }
 
     @Override

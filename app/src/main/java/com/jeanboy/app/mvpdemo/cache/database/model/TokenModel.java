@@ -1,6 +1,7 @@
 package com.jeanboy.app.mvpdemo.cache.database.model;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
 /**
@@ -9,24 +10,34 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class TokenModel {
 
+    @Id(autoincrement = true)
+    private Long id;
     private Long userId;
-    private String username;
     private Long expiresIn;
     private String refreshToken;
     private String accessToken;
     private Long createTime;
 
-    @Generated(hash = 1095616893)
-    public TokenModel(Long userId, Long expiresIn, String refreshToken,
-                      String accessToken) {
+    public TokenModel() {
+    }
+
+    @Generated(hash = 1245094608)
+    public TokenModel(Long id, Long userId, Long expiresIn, String refreshToken,
+            String accessToken, Long createTime) {
+        this.id = id;
         this.userId = userId;
         this.expiresIn = expiresIn;
         this.refreshToken = refreshToken;
         this.accessToken = accessToken;
+        this.createTime = createTime;
     }
 
-    @Generated(hash = 169426701)
-    public TokenModel() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getUserId() {
@@ -35,14 +46,6 @@ public class TokenModel {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Long getExpiresIn() {

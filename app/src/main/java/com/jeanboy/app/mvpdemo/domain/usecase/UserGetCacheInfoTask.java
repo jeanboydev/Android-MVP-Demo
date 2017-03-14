@@ -1,35 +1,33 @@
-package com.jeanboy.app.mvpdemo.tasks.domain.usecase;
+package com.jeanboy.app.mvpdemo.domain.usecase;
 
 import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.cache.source.UserRepository;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
-import com.jeanboy.app.mvpdemo.tasks.domain.UseCase;
+import com.jeanboy.app.mvpdemo.domain.base.BaseUseCase;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Created by jeanboy on 2017/3/10.
+ * Created by jeanboy on 2017/3/14.
  */
 
-public class UserGetTask extends UseCase<UserGetTask.RequestValues, UserGetTask.ResponseValue> {
+public class UserGetCacheInfoTask extends BaseUseCase<UserGetCacheInfoTask.RequestValues, UserGetCacheInfoTask.ResponseValue> {
 
     private final UserRepository userRepository;
 
-    public UserGetTask(@NonNull UserRepository userRepository) {
+    public UserGetCacheInfoTask(@NonNull UserRepository userRepository) {
         this.userRepository = checkNotNull(userRepository);
     }
 
+
     @Override
     protected void executeUseCase(RequestValues requestValues) {
-        String userId = requestValues.getUserId();
-
-        userRepository.getUser(Long.valueOf(userId), new SourceCallback<UserModel>() {
+        userRepository.get(requestValues.getUserId(), new SourceCallback<UserModel>() {
             @Override
             public void onLoaded(UserModel userModel) {
-                ResponseValue responseValue = new ResponseValue(userModel);
-                getUseCaseCallback().onSuccess(responseValue);
+                getUseCaseCallback().onSuccess(new ResponseValue(userModel));
             }
 
             @Override
@@ -39,19 +37,19 @@ public class UserGetTask extends UseCase<UserGetTask.RequestValues, UserGetTask.
         });
     }
 
-    public static final class RequestValues implements UseCase.RequestValues {
-        private String userId;
+    public static final class RequestValues implements BaseUseCase.RequestValues {
+        private Long userId;
 
-        public RequestValues(String userId) {
+        public RequestValues(Long userId) {
             this.userId = userId;
         }
 
-        public String getUserId() {
+        public Long getUserId() {
             return userId;
         }
     }
 
-    public static final class ResponseValue implements UseCase.ResponseValue {
+    public static final class ResponseValue implements BaseUseCase.ResponseValue {
         private UserModel userModel;
 
         public ResponseValue(UserModel userModel) {

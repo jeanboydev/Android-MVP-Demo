@@ -1,10 +1,10 @@
-package com.jeanboy.app.mvpdemo.tasks.domain;
+package com.jeanboy.app.mvpdemo.domain.base;
 
 /**
  * Created by jeanboy on 2017/3/10.
  */
 
-public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase.ResponseValue> {
+public abstract class BaseUseCase<Q extends BaseUseCase.RequestValues, P extends BaseUseCase.ResponseValue> {
 
     private Q mRequestValues;
 
