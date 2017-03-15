@@ -3,7 +3,7 @@ package com.jeanboy.app.mvpdemo.domain.usecase;
 import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
-import com.jeanboy.app.mvpdemo.cache.source.TokenRepository;
+import com.jeanboy.app.mvpdemo.cache.source.repository.TokenRepository;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
 import com.jeanboy.app.mvpdemo.domain.base.BaseUseCase;
 
@@ -40,6 +40,11 @@ public class TokenGetCacheInfoTask extends BaseUseCase<TokenGetCacheInfoTask.Req
                 getUseCaseCallback().onError();
             }
         });
+    }
+
+    @Override
+    protected void cancelUseCase() {
+
     }
 
     public static final class RequestValues implements BaseUseCase.RequestValues {

@@ -1,5 +1,7 @@
 package com.jeanboy.app.mvpdemo.base;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeanboy.app.mvpdemo.R;
 import com.jeanboy.lib.common.utils.StatusBarUtil;
@@ -187,6 +190,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    protected void addFragment(int containerViewId, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId, fragment);
+        fragmentTransaction.commit();
+    }
+
+    protected void showToastMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
     /**
      * startActivity兼容处理

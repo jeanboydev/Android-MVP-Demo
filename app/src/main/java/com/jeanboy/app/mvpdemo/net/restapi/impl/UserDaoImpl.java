@@ -1,9 +1,9 @@
-package com.jeanboy.app.mvpdemo.api.impl;
+package com.jeanboy.app.mvpdemo.net.restapi.impl;
 
-import com.jeanboy.app.mvpdemo.api.dao.UserDao;
-import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.cache.source.UserDataSource;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
+import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
+import com.jeanboy.app.mvpdemo.net.restapi.dao.UserDao;
 import com.jeanboy.lib.common.manager.net.NetManager;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
@@ -22,20 +22,20 @@ public class UserDaoImpl implements UserDataSource.Remote{
     private UserDao userDao = NetManager.getInstance().create(UserDao.class);
 
     @Override
-    public Call<UserModel> getInfo(String token, String id, RequestCallback<UserModel> callback) {
-        Call<UserModel> call = userDao.getInfo(token, id);
+    public Call<UserEntity> getInfo(String token, String id, RequestCallback<UserEntity> callback) {
+        Call<UserEntity> call = userDao.getInfo(token, id);
         NetManager.getInstance().doBack(call, callback);
         return call;
     }
 
     @Override
-    public Call<UserModel> updateInfo(String token, String id, UserModel user, RequestCallback<UserModel> callback) {
+    public Call<UserEntity> updateInfo(String token, String id, UserEntity user, RequestCallback<UserEntity> callback) {
 //        Map<String, Object> params = new HashMap<>();
 //        params.put("grantType", "phone_pass");
 //        params.put("phone", username);
 //        params.put("password", password);
 //        RequestBody body = RequestBody.create(ApiConfig.TYPE_JSON, JSON.toJSONString(params));
-        Call<UserModel> call = userDao.updateInfo("Basic " + token, id, ApiConfig.TYPE_CLIENT, user);
+        Call<UserEntity> call = userDao.updateInfo("Basic " + token, id, ApiConfig.TYPE_CLIENT, user);
         NetManager.getInstance().doBack(call, callback);
         return call;
     }

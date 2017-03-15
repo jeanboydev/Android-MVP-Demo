@@ -30,7 +30,13 @@ public abstract class BaseUseCase<Q extends BaseUseCase.RequestValues, P extends
         executeUseCase(mRequestValues);
     }
 
+    public void cancel() {
+        cancelUseCase();
+    }
+
     protected abstract void executeUseCase(Q requestValues);
+
+    protected abstract void cancelUseCase();
 
     /**
      * Data passed to a request.

@@ -1,8 +1,8 @@
-package com.jeanboy.app.mvpdemo.api.dao;
+package com.jeanboy.app.mvpdemo.net.restapi.dao;
 
 
-import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
+import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -82,7 +82,7 @@ public interface UserDao {
      * @return
      */
     @GET(ApiConfig.PATH_USERS + "/{id}")
-    Call<UserModel> getInfo(@Header("Authorization") String token, @Path("id") String id);
+    Call<UserEntity> getInfo(@Header("Authorization") String token, @Path("id") String id);
 
 
     /**
@@ -97,8 +97,8 @@ public interface UserDao {
      * @return
      */
     @PUT(ApiConfig.PATH_USERS + "/{id}")
-    Call<UserModel> updateInfo(@Header("Authorization") String token, @Path("id") String id,
-                               @Query("client") String client, @Body UserModel user);
+    Call<UserEntity> updateInfo(@Header("Authorization") String token, @Path("id") String id,
+                               @Query("client") String client, @Body UserEntity user);
 
 
     /**

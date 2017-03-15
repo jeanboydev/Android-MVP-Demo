@@ -1,12 +1,15 @@
-package com.jeanboy.app.mvpdemo.cache.source;
+package com.jeanboy.app.mvpdemo.cache.source.repository;
 
 import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
+import com.jeanboy.app.mvpdemo.cache.source.UserDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.base.BaseRepository;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
 import com.jeanboy.app.mvpdemo.cache.source.local.UserLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.remote.UserRemoteDataSource;
+import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
+import com.jeanboy.app.mvpdemo.net.mapper.UserModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import java.io.File;
@@ -142,15 +145,17 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserModel> getInfo(@NonNull String token, @NonNull String id,
-                                   @NonNull final RequestCallback<UserModel> callback) {
+    public Call<UserEntity> getInfo(@NonNull String token, @NonNull String id,
+                                    @NonNull final RequestCallback<UserEntity> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(callback);
-        return userRemoteDataSource.getInfo(token, id, new RequestCallback<UserModel>() {
+
+        return userRemoteDataSource.getInfo(token, id, new RequestCallback<UserEntity>() {
             @Override
-            public void success(Response<UserModel> response) {
-                UserModel userModel = response.body();
+            public void success(Response<UserEntity> response) {
+                UserEntity userEntity = response.body();
+                UserModel userModel = new UserModelDataMapper().transform(userEntity);
                 refreshMemoryCache(userModel);
                 refreshLocalDataSource(userModel);
                 callback.success(response);
@@ -173,8 +178,8 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserModel> updateInfo(@NonNull String token, @NonNull String id, UserModel user,
-                                      @NonNull RequestCallback<UserModel> callback) {
+    public Call<UserEntity> updateInfo(@NonNull String token, @NonNull String id, UserEntity user,
+                                      @NonNull RequestCallback<UserEntity> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(user);

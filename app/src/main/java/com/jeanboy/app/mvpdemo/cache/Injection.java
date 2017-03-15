@@ -1,7 +1,7 @@
 package com.jeanboy.app.mvpdemo.cache;
 
-import com.jeanboy.app.mvpdemo.cache.source.TokenRepository;
-import com.jeanboy.app.mvpdemo.cache.source.UserRepository;
+import com.jeanboy.app.mvpdemo.cache.source.repository.TokenRepository;
+import com.jeanboy.app.mvpdemo.cache.source.repository.UserRepository;
 import com.jeanboy.app.mvpdemo.cache.source.local.TokenLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.local.UserLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.remote.TokenRemoteDataSource;

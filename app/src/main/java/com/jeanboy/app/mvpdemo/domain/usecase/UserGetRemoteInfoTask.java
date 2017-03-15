@@ -3,10 +3,13 @@ package com.jeanboy.app.mvpdemo.domain.usecase;
 import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
-import com.jeanboy.app.mvpdemo.cache.source.UserRepository;
+import com.jeanboy.app.mvpdemo.cache.source.repository.UserRepository;
 import com.jeanboy.app.mvpdemo.domain.base.BaseUseCase;
+import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
+import com.jeanboy.app.mvpdemo.net.mapper.UserModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
+import retrofit2.Call;
 import retrofit2.Response;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -19,18 +22,22 @@ public class UserGetRemoteInfoTask extends BaseUseCase<UserGetRemoteInfoTask.Req
 
     private final UserRepository userRepository;
 
+    private Call<UserEntity> call;
+
     public UserGetRemoteInfoTask(@NonNull UserRepository userRepository) {
         this.userRepository = checkNotNull(userRepository);
     }
 
     @Override
-    protected void executeUseCase(RequestValues requestValues) {
+    protected void executeUseCase(final RequestValues requestValues) {
         String userId = requestValues.getUserId();
         String accessToken = requestValues.getAccessToken();
-        userRepository.getInfo(accessToken, userId, new RequestCallback<UserModel>() {
+        call = userRepository.getInfo(accessToken, userId, new RequestCallback<UserEntity>() {
             @Override
-            public void success(Response<UserModel> response) {
-                ResponseValue responseValue = new ResponseValue(response.body());
+            public void success(Response<UserEntity> response) {
+                UserEntity userEntity = response.body();
+                UserModel userModel = new UserModelDataMapper().transform(userEntity);
+                ResponseValue responseValue = new ResponseValue(userModel);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
@@ -39,6 +46,13 @@ public class UserGetRemoteInfoTask extends BaseUseCase<UserGetRemoteInfoTask.Req
                 getUseCaseCallback().onError();
             }
         });
+    }
+
+    @Override
+    protected void cancelUseCase() {
+        if (call != null) {
+            call.cancel();
+        }
     }
 
     public static final class RequestValues implements BaseUseCase.RequestValues {

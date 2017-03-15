@@ -3,10 +3,10 @@ package com.jeanboy.app.mvpdemo.component.handler;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.jeanboy.app.mvpdemo.BuildConfig;
 import com.jeanboy.app.mvpdemo.config.AppConfig;
-import com.jeanboy.lib.common.BuildConfig;
-import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.NetHandler;
+import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.StatusCode;
 import com.jeanboy.lib.common.manager.net.converters.FastJsonConverterFactory;
 
@@ -54,7 +54,7 @@ public class OkHttpHandler implements NetHandler {
                 } else {
                     String msg = null;
                     try {
-                        msg = response.errorBody().string();// TODO:处理自定义错误信息
+                        msg = response.errorBody().string();
                     } catch (IOException e) {
                         callback.error(response.code(), e.getMessage());
                     }
@@ -82,7 +82,7 @@ public class OkHttpHandler implements NetHandler {
             } else {
                 String msg = null;
                 try {
-                    msg = response.errorBody().string();// TODO:处理自定义错误信息
+                    msg = response.errorBody().string();
                 } catch (IOException e) {
                     callback.error(response.code(), e.getMessage());
                 }

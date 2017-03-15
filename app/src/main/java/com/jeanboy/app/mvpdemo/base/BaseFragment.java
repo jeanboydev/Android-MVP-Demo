@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jeanboy.app.mvpdemo.R;
 import com.jeanboy.lib.common.utils.StatusBarUtil;
@@ -141,5 +142,9 @@ public abstract class BaseFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             StatusBarUtil.setColor(getActivity(), getResources().getColor(R.color.colorPrimaryDark));
         }
+    }
+
+    protected void showToastMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

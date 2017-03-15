@@ -1,7 +1,7 @@
-package com.jeanboy.app.mvpdemo.api.dao;
+package com.jeanboy.app.mvpdemo.net.restapi.dao;
 
-import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
+import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -28,7 +28,7 @@ public interface TokenDao {
      */
     @FormUrlEncoded
     @POST(ApiConfig.PATH_TOKENS)
-    Call<TokenModel> getToken(@Query("client") String client, @Field("username") String username, @Field("password") String password);
+    Call<TokenEntity> getToken(@Query("client") String client, @Field("username") String username, @Field("password") String password);
 
 
     /**
@@ -42,5 +42,5 @@ public interface TokenDao {
      */
     @FormUrlEncoded
     @POST(ApiConfig.PATH_TOKENS)
-    Call<TokenModel> refreshToken(@Query("client") String client, @Field("refresh_token") String refreshToken);
+    Call<TokenEntity> refreshToken(@Query("client") String client, @Field("refresh_token") String refreshToken);
 }

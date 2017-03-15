@@ -1,12 +1,15 @@
-package com.jeanboy.app.mvpdemo.cache.source;
+package com.jeanboy.app.mvpdemo.cache.source.repository;
 
 import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
+import com.jeanboy.app.mvpdemo.cache.source.TokenDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.base.BaseRepository;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
 import com.jeanboy.app.mvpdemo.cache.source.local.TokenLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.remote.TokenRemoteDataSource;
+import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
+import com.jeanboy.app.mvpdemo.net.mapper.TokenModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.StatusCode;
 
@@ -138,8 +141,8 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @return
      */
     @Override
-    public Call<TokenModel> getToken(@NonNull final String username, @NonNull final String password,
-                                     @NonNull final RequestCallback<TokenModel> callback) {
+    public Call<TokenEntity> getToken(@NonNull final String username, @NonNull final String password,
+                                      @NonNull final RequestCallback<TokenEntity> callback) {
         checkNotNull(username);
         checkNotNull(password);
         checkNotNull(callback);
@@ -154,7 +157,7 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @return
      */
     @Override
-    public Call<TokenModel> refreshToken(@NonNull String refreshToken, @NonNull RequestCallback<TokenModel> callback) {
+    public Call<TokenEntity> refreshToken(@NonNull String refreshToken, @NonNull RequestCallback<TokenEntity> callback) {
         checkNotNull(refreshToken);
         checkNotNull(callback);
         return tokenRemoteDataSource.refreshToken(refreshToken, callback);
@@ -215,16 +218,17 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @param callback
      * @return
      */
-    private Call<TokenModel> refreshAccessToken(@NonNull final String refreshToken,
+    private Call<TokenEntity> refreshAccessToken(@NonNull final String refreshToken,
                                                 @NonNull final SourceCallback<TokenModel> callback) {
         checkNotNull(refreshToken);
         checkNotNull(callback);
 
         //使用refresh_token获取access_token
-        return refreshToken(refreshToken, new RequestCallback<TokenModel>() {
+        return refreshToken(refreshToken, new RequestCallback<TokenEntity>() {
             @Override
-            public void success(Response<TokenModel> response) {
-                TokenModel tokenModel = response.body();
+            public void success(Response<TokenEntity> response) {
+                TokenEntity tokenEntity=response.body();
+                TokenModel tokenModel = new TokenModelDataMapper().transform(tokenEntity);
                 retryErrorCount = 0;
                 refreshMemoryCache(tokenModel);//刷新内存中缓存
                 refreshLocalDataSource(tokenModel);//刷新数据库缓存

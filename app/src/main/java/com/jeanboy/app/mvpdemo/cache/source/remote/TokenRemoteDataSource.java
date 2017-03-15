@@ -1,8 +1,8 @@
 package com.jeanboy.app.mvpdemo.cache.source.remote;
 
-import com.jeanboy.app.mvpdemo.api.impl.TokenDaoImpl;
-import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 import com.jeanboy.app.mvpdemo.cache.source.TokenDataSource;
+import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
+import com.jeanboy.app.mvpdemo.net.restapi.impl.TokenDaoImpl;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import retrofit2.Call;
@@ -26,12 +26,12 @@ public class TokenRemoteDataSource implements TokenDataSource.Remote {
 
 
     @Override
-    public Call<TokenModel> getToken(String username, String password, RequestCallback<TokenModel> callback) {
+    public Call<TokenEntity> getToken(String username, String password, RequestCallback<TokenEntity> callback) {
         return tokenDao.getToken(username, password, callback);
     }
 
     @Override
-    public Call<TokenModel> refreshToken(String refreshToken, RequestCallback<TokenModel> callback) {
+    public Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<TokenEntity> callback) {
         return tokenDao.refreshToken(refreshToken, callback);
     }
 }

@@ -1,8 +1,8 @@
 package com.jeanboy.app.mvpdemo.cache.source.remote;
 
-import com.jeanboy.app.mvpdemo.api.impl.UserDaoImpl;
-import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.cache.source.UserDataSource;
+import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
+import com.jeanboy.app.mvpdemo.net.restapi.impl.UserDaoImpl;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import java.io.File;
@@ -28,12 +28,12 @@ public class UserRemoteDataSource implements UserDataSource.Remote {
 
 
     @Override
-    public Call<UserModel> getInfo(String token, String id, RequestCallback<UserModel> callback) {
+    public Call<UserEntity> getInfo(String token, String id, RequestCallback<UserEntity> callback) {
         return userDao.getInfo(token, id, callback);
     }
 
     @Override
-    public Call<UserModel> updateInfo(String token, String id, UserModel user, RequestCallback<UserModel> callback) {
+    public Call<UserEntity> updateInfo(String token, String id, UserEntity user, RequestCallback<UserEntity> callback) {
         return userDao.updateInfo(token, id, user, callback);
     }
 

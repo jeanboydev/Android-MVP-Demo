@@ -3,6 +3,7 @@ package com.jeanboy.app.mvpdemo.cache.source;
 import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 import com.jeanboy.app.mvpdemo.cache.source.base.BaseLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
+import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import retrofit2.Call;
@@ -20,8 +21,8 @@ public class TokenDataSource {
 
     public interface Remote {
 
-        Call<TokenModel> getToken(String username, String password, RequestCallback<TokenModel> callback);
+        Call<TokenEntity> getToken(String username, String password, RequestCallback<TokenEntity> callback);
 
-        Call<TokenModel> refreshToken(String refreshToken, RequestCallback<TokenModel> callback);
+        Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<TokenEntity> callback);
     }
 }

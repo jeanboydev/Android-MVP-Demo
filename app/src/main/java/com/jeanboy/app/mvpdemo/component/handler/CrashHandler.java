@@ -6,7 +6,7 @@ import android.content.Intent;
 import com.jeanboy.app.mvpdemo.ui.activity.SplashActivity;
 
 /**
- * Created by Next on 2016/7/4.
+ * Created by jeanboy on 2016/7/4.
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
