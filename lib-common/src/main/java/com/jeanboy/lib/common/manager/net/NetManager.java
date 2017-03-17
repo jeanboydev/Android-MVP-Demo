@@ -39,10 +39,10 @@ public class NetManager {
     }
 
     public <T> void doBack(Call<T> call, RequestCallback<T> callback) {
-        this.doBack(call, callback);
+        this.netHandler.doBack(call, callback);
     }
 
     public <T> void doSyncBack(Call<T> call, RequestCallback<T> callback) {
-        this.doSyncBack(call, callback);
+        this.netHandler.doSyncBack(call, callback);
     }
 }

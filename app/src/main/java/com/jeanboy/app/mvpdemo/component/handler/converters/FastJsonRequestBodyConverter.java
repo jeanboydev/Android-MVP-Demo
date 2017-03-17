@@ -1,4 +1,4 @@
-package com.jeanboy.lib.common.manager.net.converters;
+package com.jeanboy.app.mvpdemo.component.handler.converters;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializeConfig;

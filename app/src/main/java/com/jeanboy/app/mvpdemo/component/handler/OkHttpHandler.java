@@ -8,7 +8,7 @@ import com.jeanboy.app.mvpdemo.config.AppConfig;
 import com.jeanboy.lib.common.manager.net.NetHandler;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 import com.jeanboy.lib.common.manager.net.StatusCode;
-import com.jeanboy.lib.common.manager.net.converters.FastJsonConverterFactory;
+import com.jeanboy.app.mvpdemo.component.handler.converters.FastJsonConverterFactory;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
