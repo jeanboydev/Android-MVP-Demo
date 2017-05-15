@@ -8,11 +8,6 @@ import com.jeanboy.app.mvpdemo.base.BaseActivity;
 public class InfoActivity extends BaseActivity {
 
     @Override
-    public Class getTag(Class clazz) {
-        return InfoActivity.class;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_info;
     }

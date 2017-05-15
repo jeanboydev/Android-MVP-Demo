@@ -34,8 +34,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         TAG = this.getClass().getSimpleName();
     }
 
-    public abstract Class getTag(Class clazz);
-
     public abstract int getLayoutId();
 
     public abstract void setupView(Bundle savedInstanceState);
@@ -46,7 +44,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        TAG = getTag(BaseActivity.class).getSimpleName();
         ButterKnife.bind(this);
 
         setupToolbar();

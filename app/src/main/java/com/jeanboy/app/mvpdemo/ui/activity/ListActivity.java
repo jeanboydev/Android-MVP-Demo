@@ -23,11 +23,6 @@ public class ListActivity extends BaseActivity {
     private ListAdapter listAdapter;
 
     @Override
-    public Class getTag(Class clazz) {
-        return ListActivity.class;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_list;
     }

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,11 +60,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private int currentTabIndex = 0;
 
     @Override
-    public Class getTag(Class clazz) {
-        return MainActivity.class;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_main;
     }
@@ -106,6 +102,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         });
 
         mNavigationView.setNavigationItemSelectedListener(this);
+
     }
 
     private void doAnimation(final int position, int centerX, int centerY) {

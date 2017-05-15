@@ -24,11 +24,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     private LoginPresenter loginPresenter;
 
     @Override
-    public Class getTag(Class clazz) {
-        return LoginActivity.class;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_login;
     }

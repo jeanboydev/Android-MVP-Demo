@@ -33,11 +33,6 @@ public class SplashActivity extends BaseActivity {
 
 
     @Override
-    public Class getTag(Class clazz) {
-        return SplashActivity.class;
-    }
-
-    @Override
     public int getLayoutId() {
         return R.layout.activity_slpash;
     }
