@@ -39,7 +39,7 @@ public class MainApplication extends Application {
         //图片
         ImagesManager.getInstance().build(context.getApplicationContext(), new GlideHandler());
         //网络
-        NetManager.getInstance().build(context.getApplicationContext(), new OkHttpHandler());
+        NetManager.getInstance().build(new OkHttpHandler());
     }
 
 

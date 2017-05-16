@@ -1,24 +1,23 @@
 package com.jeanboy.lib.common.manager.net;
 
-import android.content.Context;
-
-import retrofit2.Call;
-
 /**
  * Created by jeanboy on 2017/2/10.
  */
 
-public interface NetHandler {
+public abstract class NetHandler<P extends NetHandler.RequestParams, B extends NetHandler.ResponseData> {
 
-    void init(Context context);
+    public abstract String getBaseUrl();
 
-    String getBaseUrl();
+    public abstract <T> T create(Class<T> clazz);
 
-    /*根据使用的网络库修改以下方法参数*/
+    public abstract void doBack(P requestValues, RequestCallback<B> callback);
 
-    <T> T create(Class<T> clazz);
+    public abstract void doSyncBack(P requestValues, RequestCallback<B> callback);
 
-    <T> void doBack(Call<T> call, final RequestCallback<T> callback);
+    public interface RequestParams {
+    }
 
-    <T> void doSyncBack(Call<T> call, RequestCallback<T> callback);
+    public interface ResponseData {
+    }
+
 }

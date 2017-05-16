@@ -8,6 +8,7 @@ import com.jeanboy.app.mvpdemo.cache.source.base.BaseRepository;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
 import com.jeanboy.app.mvpdemo.cache.source.local.UserLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.remote.UserRemoteDataSource;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
 import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
 import com.jeanboy.app.mvpdemo.net.mapper.UserModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
@@ -18,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.Response;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -145,25 +145,24 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserEntity> getInfo(@NonNull String token, @NonNull String id,
-                                    @NonNull final RequestCallback<UserEntity> callback) {
+    public Call<UserEntity> getInfo(String token, String id, final RequestCallback<OkHttpHandler.ResponseData> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(callback);
 
-        return userRemoteDataSource.getInfo(token, id, new RequestCallback<UserEntity>() {
+        return userRemoteDataSource.getInfo(token, id, new RequestCallback<OkHttpHandler.ResponseData>() {
             @Override
-            public void success(Response<UserEntity> response) {
-                UserEntity userEntity = response.body();
+            public void onSuccess(OkHttpHandler.ResponseData response) {
+                UserEntity userEntity = (UserEntity) response.getData().body();
                 UserModel userModel = new UserModelDataMapper().transform(userEntity);
                 refreshMemoryCache(userModel);
                 refreshLocalDataSource(userModel);
-                callback.success(response);
+                callback.onSuccess(response);
             }
 
             @Override
-            public void error(int code, String msg) {
-                callback.error(code, msg);
+            public void onError(int code, String msg) {
+                callback.onError(code, msg);
             }
         });
     }
@@ -178,8 +177,7 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserEntity> updateInfo(@NonNull String token, @NonNull String id, UserEntity user,
-                                      @NonNull RequestCallback<UserEntity> callback) {
+    public Call<UserEntity> updateInfo(String token, String id, UserEntity user, RequestCallback<OkHttpHandler.ResponseData> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(user);
@@ -197,8 +195,7 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<String> uploadAvatar(@NonNull String token, @NonNull String id, @NonNull File file,
-                                     @NonNull RequestCallback<String> callback) {
+    public Call<String> uploadAvatar(String token, String id, File file, RequestCallback<OkHttpHandler.ResponseData> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(file);

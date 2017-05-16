@@ -51,6 +51,7 @@ public abstract class BaseUseCase<Q extends BaseUseCase.RequestValues, P extends
     }
 
     public interface UseCaseCallback<R> {
+
         void onSuccess(R response);
 
         void onError();

@@ -3,6 +3,7 @@ package com.jeanboy.app.mvpdemo.cache.source;
 import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 import com.jeanboy.app.mvpdemo.cache.source.base.BaseLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
 import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
@@ -21,8 +22,8 @@ public class TokenDataSource {
 
     public interface Remote {
 
-        Call<TokenEntity> getToken(String username, String password, RequestCallback<TokenEntity> callback);
+        Call<TokenEntity> getToken(String username, String password, RequestCallback<OkHttpHandler.ResponseData> callback);
 
-        Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<TokenEntity> callback);
+        Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<OkHttpHandler.ResponseData> callback);
     }
 }

@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.UserModel;
 import com.jeanboy.app.mvpdemo.cache.source.repository.UserRepository;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
 import com.jeanboy.app.mvpdemo.domain.base.BaseUseCase;
 import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
 import com.jeanboy.app.mvpdemo.net.mapper.UserModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import retrofit2.Call;
-import retrofit2.Response;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,17 +32,17 @@ public class UserGetRemoteInfoTask extends BaseUseCase<UserGetRemoteInfoTask.Req
     protected void executeUseCase(final RequestValues requestValues) {
         String userId = requestValues.getUserId();
         String accessToken = requestValues.getAccessToken();
-        call = userRepository.getInfo(accessToken, userId, new RequestCallback<UserEntity>() {
+        call = userRepository.getInfo(accessToken, userId, new RequestCallback<OkHttpHandler.ResponseData>() {
             @Override
-            public void success(Response<UserEntity> response) {
-                UserEntity userEntity = response.body();
+            public void onSuccess(OkHttpHandler.ResponseData response) {
+                UserEntity userEntity = (UserEntity) response.getData().body();
                 UserModel userModel = new UserModelDataMapper().transform(userEntity);
                 ResponseValue responseValue = new ResponseValue(userModel);
                 getUseCaseCallback().onSuccess(responseValue);
             }
 
             @Override
-            public void error(int code, String msg) {
+            public void onError(int code, String msg) {
                 getUseCaseCallback().onError();
             }
         });

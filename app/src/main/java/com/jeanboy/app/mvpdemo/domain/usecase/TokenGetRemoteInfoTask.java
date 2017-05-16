@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 
 import com.jeanboy.app.mvpdemo.cache.database.model.TokenModel;
 import com.jeanboy.app.mvpdemo.cache.source.repository.TokenRepository;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
 import com.jeanboy.app.mvpdemo.domain.base.BaseUseCase;
 import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.app.mvpdemo.net.mapper.TokenModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
 
 import retrofit2.Call;
-import retrofit2.Response;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -18,7 +18,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by jeanboy on 2017/3/14.
  */
 
-public class TokenGetRemoteInfoTask extends BaseUseCase<TokenGetRemoteInfoTask.RequestValues, TokenGetRemoteInfoTask.ResponseValue> {
+public class TokenGetRemoteInfoTask extends BaseUseCase<TokenGetRemoteInfoTask.RequestValues,
+        TokenGetRemoteInfoTask.ResponseValue> {
 
     private final TokenRepository tokenRepository;
 
@@ -31,20 +32,20 @@ public class TokenGetRemoteInfoTask extends BaseUseCase<TokenGetRemoteInfoTask.R
     @Override
     protected void executeUseCase(RequestValues requestValues) {
         call = tokenRepository.getToken(requestValues.getUsername(), requestValues.getPassword(),
-                new RequestCallback<TokenEntity>() {
-                    @Override
-                    public void success(Response<TokenEntity> response) {
-                        TokenEntity tokenEntity = response.body();
-                        TokenModel tokenModel = new TokenModelDataMapper().transform(tokenEntity);
-                        ResponseValue responseValue = new ResponseValue(tokenModel);
-                        getUseCaseCallback().onSuccess(responseValue);
-                    }
+                new RequestCallback<OkHttpHandler.ResponseData>() {
+            @Override
+            public void onSuccess(OkHttpHandler.ResponseData response) {
+                TokenEntity tokenEntity = (TokenEntity) response.getData().body();
+                TokenModel tokenModel = new TokenModelDataMapper().transform(tokenEntity);
+                ResponseValue responseValue = new ResponseValue(tokenModel);
+                getUseCaseCallback().onSuccess(responseValue);
+            }
 
-                    @Override
-                    public void error(int code, String msg) {
-                        getUseCaseCallback().onError();
-                    }
-                });
+            @Override
+            public void onError(int code, String msg) {
+                getUseCaseCallback().onError();
+            }
+        });
     }
 
     @Override

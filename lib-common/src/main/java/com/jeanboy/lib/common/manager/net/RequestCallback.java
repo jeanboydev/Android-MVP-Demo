@@ -1,13 +1,11 @@
 package com.jeanboy.lib.common.manager.net;
 
-import retrofit2.Response;
-
 /**
  * Created by Next on 2016/7/13.
  */
-public interface RequestCallback<T> {
+public interface RequestCallback<R> {
 
-    void success(Response<T> response);
+    void onSuccess(R response);
 
-    void error(int code, String msg);
+    void onError(int code, String msg);
 }
