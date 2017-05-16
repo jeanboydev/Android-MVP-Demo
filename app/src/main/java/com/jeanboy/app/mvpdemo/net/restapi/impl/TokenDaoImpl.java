@@ -21,7 +21,7 @@ public class TokenDaoImpl implements TokenDataSource.Remote {
     @Override
     public Call<TokenEntity> getToken(String username, String password, RequestCallback<OkHttpHandler.ResponseData> callback) {
         Call<TokenEntity> call = tokenDao.getToken(ApiConfig.TYPE_CLIENT, username, password);
-        NetManager.getInstance().doBack(new OkHttpHandler.RequestParams(call), callback);
+        NetManager.getInstance().getNetHandler().doBack(new OkHttpHandler.RequestParams(call), callback);
         return call;
     }
 
