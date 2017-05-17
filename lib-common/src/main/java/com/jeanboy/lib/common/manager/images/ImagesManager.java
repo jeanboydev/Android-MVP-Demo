@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import com.google.common.base.Preconditions;
+
 import java.io.File;
 
 /**
@@ -30,6 +32,8 @@ public class ImagesManager {
     }
 
     public void build(@NonNull Context context, @NonNull ImageHandler imageHandler) {
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(imageHandler);
         this.context = context.getApplicationContext();
         this.imageHandler = imageHandler;
         this.imageHandler.init(this.context);

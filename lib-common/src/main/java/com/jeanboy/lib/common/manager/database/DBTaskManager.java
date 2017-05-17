@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 
 class DBTaskManager {
 
-
     private static ExecutorService cachedExecutor = Executors.newCachedThreadPool();
     private static ExecutorService singleExecutor = Executors.newSingleThreadExecutor();
 

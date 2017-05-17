@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Preconditions;
+
 import java.util.List;
 
 /**
@@ -31,6 +33,8 @@ public class DBManager {
     }
 
     public void build(@NonNull Context context, @NonNull DBHandler dbHandler) {
+        Preconditions.checkNotNull(context);
+        Preconditions.checkNotNull(dbHandler);
         this.context = context.getApplicationContext();
         this.dbHandler = (dbHandler);
         this.dbHandler.init(this.context);
