@@ -27,7 +27,7 @@ public class UploadTask extends Task {
 
 //        // TODO: 具体操作逻辑
 //        call = ApiManager.getInstance().fileApi.upload(new File(fileBean.getPath()));
-//        ApiManager.getInstance().doSyncBack(call, new RequestCallback<FileBean>() {
+//        ApiManager.getInstance().doSync(call, new RequestCallback<FileBean>() {
 //            @Override
 //            public void success(Response<FileBean> response) {
 //

@@ -2,11 +2,14 @@ package com.jeanboy.app.mvpdemo.net.restapi.impl;
 
 import com.jeanboy.app.mvpdemo.cache.source.TokenDataSource;
 import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
+import com.jeanboy.app.mvpdemo.component.handler.OkHttpManager;
 import com.jeanboy.app.mvpdemo.config.ApiConfig;
 import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.app.mvpdemo.net.restapi.dao.TokenDao;
 import com.jeanboy.lib.common.manager.net.NetManager;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
+import com.jeanboy.lib.common.manager.net.RequestParams;
+import com.jeanboy.lib.common.manager.net.ResponseData;
 
 import retrofit2.Call;
 
@@ -16,19 +19,20 @@ import retrofit2.Call;
 
 public class TokenDaoImpl implements TokenDataSource.Remote {
 
-    private TokenDao tokenDao = (TokenDao) NetManager.getInstance().getNetHandler().create(TokenDao.class);
+    private OkHttpHandler<TokenEntity> handler = new OkHttpHandler<>();
+    private TokenDao tokenDao = OkHttpManager.getInstance().create(TokenDao.class);
 
     @Override
-    public Call<TokenEntity> getToken(String username, String password, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<TokenEntity> getToken(String username, String password, RequestCallback<ResponseData<TokenEntity>> callback) {
         Call<TokenEntity> call = tokenDao.getToken(ApiConfig.TYPE_CLIENT, username, password);
-        NetManager.getInstance().getNetHandler().doBack(new OkHttpHandler.RequestParams(call), callback);
+        NetManager.getInstance().doBack(handler, new RequestParams<>(call), callback);
         return call;
     }
 
     @Override
-    public Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<ResponseData<TokenEntity>> callback) {
         Call<TokenEntity> call = tokenDao.refreshToken(ApiConfig.TYPE_CLIENT, refreshToken);
-        NetManager.getInstance().getNetHandler().doBack(new OkHttpHandler.RequestParams(call), callback);
+        NetManager.getInstance().doBack(handler, new RequestParams<>(call), callback);
         return call;
     }
 }

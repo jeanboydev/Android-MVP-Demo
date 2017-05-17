@@ -9,9 +9,11 @@ import com.jeanboy.app.mvpdemo.cache.source.callback.SourceCallback;
 import com.jeanboy.app.mvpdemo.cache.source.local.UserLocalDataSource;
 import com.jeanboy.app.mvpdemo.cache.source.remote.UserRemoteDataSource;
 import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
+import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.app.mvpdemo.net.entity.UserEntity;
 import com.jeanboy.app.mvpdemo.net.mapper.UserModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
+import com.jeanboy.lib.common.manager.net.ResponseData;
 
 import java.io.File;
 import java.util.LinkedHashMap;
@@ -145,15 +147,15 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserEntity> getInfo(String token, String id, final RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<UserEntity> getInfo(String token, String id, final RequestCallback<ResponseData<UserEntity>> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(callback);
 
-        return userRemoteDataSource.getInfo(token, id, new RequestCallback<OkHttpHandler.ResponseData>() {
+        return userRemoteDataSource.getInfo(token, id, new RequestCallback<ResponseData<UserEntity>>() {
             @Override
-            public void onSuccess(OkHttpHandler.ResponseData response) {
-                UserEntity userEntity = (UserEntity) response.getData().body();
+            public void onSuccess(ResponseData<UserEntity> response) {
+                UserEntity userEntity = response.getBody();
                 UserModel userModel = new UserModelDataMapper().transform(userEntity);
                 refreshMemoryCache(userModel);
                 refreshLocalDataSource(userModel);
@@ -177,7 +179,7 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<UserEntity> updateInfo(String token, String id, UserEntity user, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<UserEntity> updateInfo(String token, String id, UserEntity user, RequestCallback<ResponseData<UserEntity>> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(user);
@@ -195,7 +197,7 @@ public class UserRepository implements BaseRepository, UserDataSource.Local, Use
      * @return
      */
     @Override
-    public Call<String> uploadAvatar(String token, String id, File file, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<String> uploadAvatar(String token, String id, File file, RequestCallback<ResponseData<String>> callback) {
         checkNotNull(token);
         checkNotNull(id);
         checkNotNull(file);

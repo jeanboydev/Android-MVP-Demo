@@ -12,6 +12,7 @@ import com.jeanboy.app.mvpdemo.component.handler.OkHttpHandler;
 import com.jeanboy.app.mvpdemo.net.entity.TokenEntity;
 import com.jeanboy.app.mvpdemo.net.mapper.TokenModelDataMapper;
 import com.jeanboy.lib.common.manager.net.RequestCallback;
+import com.jeanboy.lib.common.manager.net.ResponseData;
 import com.jeanboy.lib.common.manager.net.StatusCode;
 
 import java.util.LinkedHashMap;
@@ -141,7 +142,7 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @return
      */
     @Override
-    public Call<TokenEntity> getToken(String username, String password, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<TokenEntity> getToken(String username, String password, RequestCallback<ResponseData<TokenEntity>> callback) {
         checkNotNull(username);
         checkNotNull(password);
         checkNotNull(callback);
@@ -156,7 +157,7 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @return
      */
     @Override
-    public Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<OkHttpHandler.ResponseData> callback) {
+    public Call<TokenEntity> refreshToken(String refreshToken, RequestCallback<ResponseData<TokenEntity>> callback) {
         checkNotNull(refreshToken);
         checkNotNull(callback);
         return tokenRemoteDataSource.refreshToken(refreshToken, callback);
@@ -218,15 +219,15 @@ public class TokenRepository implements BaseRepository, TokenDataSource.Local, T
      * @return
      */
     private Call<TokenEntity> refreshAccessToken(@NonNull final String refreshToken,
-                                                @NonNull final SourceCallback<TokenModel> callback) {
+                                                 @NonNull final SourceCallback<TokenModel> callback) {
         checkNotNull(refreshToken);
         checkNotNull(callback);
 
         //使用refresh_token获取access_token
-        return refreshToken(refreshToken, new RequestCallback<OkHttpHandler.ResponseData>() {
+        return refreshToken(refreshToken, new RequestCallback<ResponseData<TokenEntity>>() {
             @Override
-            public void onSuccess(OkHttpHandler.ResponseData response) {
-                TokenEntity tokenEntity= (TokenEntity) response.getData().body();
+            public void onSuccess(ResponseData<TokenEntity> response) {
+                TokenEntity tokenEntity = response.getBody();
                 TokenModel tokenModel = new TokenModelDataMapper().transform(tokenEntity);
                 retryErrorCount = 0;
                 refreshMemoryCache(tokenModel);//刷新内存中缓存

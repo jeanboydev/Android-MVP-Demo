@@ -38,8 +38,6 @@ public class MainApplication extends Application {
         DBManager.getInstance().build(context.getApplicationContext(), new GreenDaoHandler());
         //图片
         ImagesManager.getInstance().build(context.getApplicationContext(), new GlideHandler());
-        //网络
-        NetManager.getInstance().build(new OkHttpHandler());
     }
 
 
